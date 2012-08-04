@@ -16,6 +16,8 @@ package
 			var worldBounds:FlxRect = tilemap.getBounds();
 			player.x = worldBounds.width / 2;
 			player.y = worldBounds.height / 2;
+			while (tilemap.overlaps(player))
+				player.y += 8;
 			
 			tilemap.follow(FlxG.camera);
 			
