@@ -18,6 +18,7 @@ package
 			player.y = worldBounds.height / 2;
 			while (tilemap.overlaps(player))
 				player.y += 8;
+			player.digAt = digAt;
 			
 			tilemap.follow(FlxG.camera);
 			
@@ -31,6 +32,11 @@ package
 		{
 			super.update();
 			FlxG.collide(tilemap, player);
+		}
+		
+		private function digAt(point:FlxPoint):void {
+			var tileWidth:int = 8;
+			tilemap.setTile(point.x / tileWidth, point.y / tileWidth, 0);
 		}
 	}
 }

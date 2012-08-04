@@ -8,6 +8,10 @@ package
 		[Embed(source = 'data/player.png')]
 		private var sprite:Class;
 		
+		private var diggingSpot:FlxPoint = new FlxPoint( -1, -1);
+		
+		public var digAt:Function = new Function();
+		
 		public function Player() 
 		{
 			loadGraphic(sprite, true);
@@ -17,20 +21,20 @@ package
 		{
 			super.update();
 			walk();
+			checkDig();
 			updateGraphic();
 		}
 		
 		private function walk():void
 		{
-			var kb:Keyboard = FlxG.keys;
 			var walkingSpeed:Number = 60;
 			
-			if (kb.UP)
+			if (FlxG.keys.UP)
 			{
 				velocity.y = -walkingSpeed;
 				facing = UP;
 			}
-			else if (kb.DOWN)
+			else if (FlxG.keys.DOWN)
 			{
 				velocity.y = walkingSpeed;
 				facing = DOWN;
@@ -40,12 +44,12 @@ package
 				velocity.y = 0;
 			}
 			
-			if (kb.LEFT)
+			if (FlxG.keys.LEFT)
 			{
 				velocity.x = -walkingSpeed;
 				facing = LEFT;
 			}
-			else if (kb.RIGHT)
+			else if (FlxG.keys.RIGHT)
 			{
 				velocity.x = walkingSpeed;
 				facing = RIGHT;
@@ -54,6 +58,25 @@ package
 			{
 				velocity.x = 0;
 			}
+		}
+		
+		private function checkDig():void
+		{
+			if (FlxG.keys.SPACE)
+				dig();
+			else
+				stopDig();
+		}
+		
+		private function dig():void
+		{
+			diggingSpot = getPointInFront();
+			digAt(diggingSpot);
+		}
+		
+		private function stopDig():void
+		{
+			diggingSpot = new FlxPoint( -1, -1);
 		}
 		
 		private function updateGraphic():void
@@ -73,6 +96,14 @@ package
 					frame = 0;
 					break;
 			}
+		}
+		
+		private function getPointInFront():FlxPoint
+		{
+			var facingPoint:FlxPoint = new FlxPoint(
+				facing == LEFT ? -width : facing == RIGHT ? width : 0,
+				facing == UP ? -height : facing == DOWN ? height : 0);
+			return Util.addPoints(this.getMidpoint(), facingPoint);
 		}
 	}
 
