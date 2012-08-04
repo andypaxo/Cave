@@ -23,7 +23,7 @@ package
 		private function walk():void
 		{
 			var kb:Keyboard = FlxG.keys;
-			var walkingSpeed:Number = 40;
+			var walkingSpeed:Number = 60;
 			
 			if (kb.UP)
 			{
