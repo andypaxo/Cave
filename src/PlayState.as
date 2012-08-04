@@ -9,6 +9,7 @@ package
 		{
 			var tilemap:FlxTilemap = new World().getTilemap();
 			add(tilemap);
+			add(new Player());
 		}
 		
 		override public function update():void

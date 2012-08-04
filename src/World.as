@@ -9,7 +9,7 @@ package
 		[Embed(source = 'data/terrain.png')]
 		private var terrainSprite:Class;
 		
-		var tilemap:FlxTilemap;
+		private var tilemap:FlxTilemap;
 		
 		public function World() 
 		{
@@ -31,7 +31,7 @@ package
 			return noiseBitmap;
 		}
 		
-		private function makeTilemapFrom(tileData:BitmapData) {
+		private function makeTilemapFrom(tileData:BitmapData):FlxTilemap {
 			var mapData:String = FlxTilemap.bitmapToCSV(tileData);
 			
 			var result:FlxTilemap = new FlxTilemap();
