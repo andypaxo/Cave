@@ -29,12 +29,12 @@ package
 		{
 			var walkingSpeed:Number = 60;
 			
-			if (FlxG.keys.UP)
+			if (FlxG.keys.UP || FlxG.keys.W)
 			{
 				velocity.y = -walkingSpeed;
 				facing = UP;
 			}
-			else if (FlxG.keys.DOWN)
+			else if (FlxG.keys.DOWN || FlxG.keys.S)
 			{
 				velocity.y = walkingSpeed;
 				facing = DOWN;
@@ -44,12 +44,12 @@ package
 				velocity.y = 0;
 			}
 			
-			if (FlxG.keys.LEFT)
+			if (FlxG.keys.LEFT || FlxG.keys.A)
 			{
 				velocity.x = -walkingSpeed;
 				facing = LEFT;
 			}
-			else if (FlxG.keys.RIGHT)
+			else if (FlxG.keys.RIGHT || FlxG.keys.D)
 			{
 				velocity.x = walkingSpeed;
 				facing = RIGHT;
