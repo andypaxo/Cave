@@ -24,7 +24,7 @@ package
 		private function makeSomeNoise():BitmapData
 		{
 			var noiseBitmap:BitmapData = new BitmapData(200, 200, false, 0xffffffff);
-			noiseBitmap.perlinNoise(32, 32, 4, Math.random() * 64000, false, false, 7, true);
+			noiseBitmap.perlinNoise(16, 16, 5, Math.random() * 64000, false, false, 7, true);
 			var threshold:uint = 0xff000044;
 			noiseBitmap.threshold(noiseBitmap, noiseBitmap.rect, new Point(), "<", threshold, 0xff000000, 0xff0000ff);
 			noiseBitmap.threshold(noiseBitmap, noiseBitmap.rect, new Point(), ">=", threshold, 0xffffffff, 0xff0000ff);
