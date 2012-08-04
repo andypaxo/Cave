@@ -9,6 +9,8 @@ package
 		private var sprite:Class;
 		
 		private var diggingSpot:FlxPoint = new FlxPoint( -1, -1);
+		private var diggingTimeRemaining:Number = 0;
+		private const timeToDig:Number = 0.6;
 		
 		public var digAt:Function = new Function();
 		
@@ -70,13 +72,31 @@ package
 		
 		private function dig():void
 		{
-			diggingSpot = getPointInFront();
-			digAt(diggingSpot);
+			if (diggingTimeRemaining > 0)
+				continueDig();
+			else
+				startDig();
+			
 		}
 		
 		private function stopDig():void
 		{
 			diggingSpot = new FlxPoint( -1, -1);
+			diggingTimeRemaining = 0;
+		}
+		
+		private function startDig():void {
+			diggingSpot = getPointInFront();
+			diggingTimeRemaining = timeToDig;
+		}
+		
+		private function continueDig():void {
+			diggingTimeRemaining -= FlxG.elapsed;
+			if (diggingTimeRemaining <= 0)
+			{
+				digAt(diggingSpot);
+				stopDig();
+			}
 		}
 		
 		private function updateGraphic():void
