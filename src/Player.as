@@ -16,7 +16,12 @@ package
 		override public function update():void 
 		{
 			super.update();
-			
+			walk();
+			updateGraphic();
+		}
+		
+		private function walk():void
+		{
 			var kb:Keyboard = FlxG.keys;
 			var walkingSpeed:Number = 40;
 			
@@ -48,6 +53,25 @@ package
 			else
 			{
 				velocity.x = 0;
+			}
+		}
+		
+		private function updateGraphic():void
+		{
+			switch (facing) 
+			{
+				case UP:
+					frame = 3;
+					break;
+				case DOWN:
+					frame = 1;
+					break;
+				case LEFT:
+					frame = 2;
+					break;
+				case RIGHT:
+					frame = 0;
+					break;
 			}
 		}
 	}
