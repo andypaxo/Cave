@@ -7,7 +7,6 @@ package
 	{		
 		private var tilemap:FlxTilemap;
 		private var player:Player;
-		private const tileWidth:int = 8;
 		
 		override public function create():void
 		{
@@ -43,12 +42,12 @@ package
 		
 		private function digAt(point:FlxPoint):void
 		{
-			tilemap.setTile(point.x / tileWidth, point.y / tileWidth, 0);
+			tilemap.setTile(point.x / Global.tileSize, point.y / Global.tileSize, 0);
 		}
 		
 		private function rockAt(point:FlxPoint):Boolean
 		{
-			return tilemap.getTile(point.x / tileWidth, point.y / tileWidth) > 0;
+			return tilemap.getTile(point.x / Global.tileSize, point.y / Global.tileSize) > 0;
 		}
 	}
 }

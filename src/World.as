@@ -13,7 +13,6 @@ package
 		private const placeableBorder:int = 2;
 		private const mapWidth:int = 200;
 		private const mapHeight:int = 200;
-		private const tileSize:int = 8;
 		
 		private var tilemap:FlxTilemap;
 		
@@ -62,7 +61,7 @@ package
 					Math.floor(Math.random() * placeableArea.height + placeableArea.top));
 					
 				if (tilemap.getTile(tileLocation.x, tileLocation.y) == 0)
-					result.push(new Mob(Util.scalePoint(tileLocation, tileSize)));
+					result.push(new Mob(Util.scalePoint(tileLocation, Global.tileSize)));
 				else
 					tilemap.setTile(tileLocation.x, tileLocation.y, 2);
 			}
