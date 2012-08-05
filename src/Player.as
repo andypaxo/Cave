@@ -155,7 +155,8 @@ package
 		
 		private function doFire():void
 		{
-			var fireball:FlxSprite = new Owie(x, y);
+			var pointInFront:FlxPoint = Util.subtract(getPointInFront(), new FlxPoint(width / 2, height / 2));
+			var fireball:FlxSprite = new Owie(pointInFront.x, pointInFront.y);
 			fireball.velocity = Util.scalePoint(facingToPoint(), 150);
 			playStage.addPlayerFire(fireball);
 		}

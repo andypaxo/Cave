@@ -57,6 +57,7 @@ package
 		private function fireHitMob(mob:Mob, fire:FlxSprite):void
 		{
 			mob.hurt(1);
+			mob.knockBack(Global.player.getMidpoint());
 			fire.kill();
 		}
 		

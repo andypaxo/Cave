@@ -30,7 +30,6 @@ package
 			pixels.fillRect(pixels.rect, 0);
 			for (var i:int = 0; i < Player.maxHealth; i++) 
 				stamp(Global.player.health > i ? full : empty, i * iconSize, 0);
-			//dirty = true;
 		}
 		
 	}

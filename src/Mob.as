@@ -12,6 +12,8 @@ package
 		private const walkingSpeed:Number = 100;
 		private const attackStrength:Number = 1;
 		
+		private var controlLockout:Number = 0;
+		
 		private var seekPlayer:Function;
 		private var attackPlayer:Function;
 		
@@ -28,6 +30,20 @@ package
 		{
 			super.update();
 			
+			if (lockedOut())
+			{
+				controlLockout -= FlxG.elapsed;
+				if (!lockedOut())
+					stop();
+			}
+			else
+			{
+				moveAndAttack();
+			}
+		}
+		
+		private function moveAndAttack():void 
+		{
 			var location:FlxPoint = getMidpoint();
 			var playerLocation:FlxPoint = Global.player.getMidpoint();
 			var distanceToPlayer:Number = FlxU.getDistance(location, playerLocation);
@@ -44,7 +60,6 @@ package
 				stop();
 			else
 				facing = velocity.x > 0 ? RIGHT : LEFT;
-				
 		}
 		
 		private function doSeekPlayer():void 
@@ -87,10 +102,17 @@ package
 			FlxG.state.add(new Mess(x, y));
 		}
 		
+		public function knockBack(from:FlxPoint):void
+		{
+			stop();
+			velocity = Util.normalize(Util.subtract(getMidpoint(), from), 150);
+			controlLockout = 0.2;
+			flicker(0.2);
+		}
+		
 		private function lockedOut():Boolean
 		{
-			//return controlLockout > 0;
-			return false;
+			return controlLockout > 0;
 		}
 	}
 
