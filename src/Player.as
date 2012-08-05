@@ -11,6 +11,7 @@ package
 		private var rockSprite:Class;
 		
 		private const walkingSpeed:Number = 60;
+		public static const maxHealth:Number = 8;
 		
 		private var diggingSpot:FlxPoint = new FlxPoint( -1, -1);
 		private var diggingTimeRemaining:Number = 0;
@@ -28,6 +29,8 @@ package
 			rockEmitter.setXSpeed( -30, 30);
 			rockEmitter.setYSpeed( -30, 15);
 			rockEmitter.gravity = 80;
+			
+			health = maxHealth;
 		}
 		
 		public function createFX():void

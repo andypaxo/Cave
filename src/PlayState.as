@@ -35,6 +35,8 @@ package
 			
 			mobs = world.makeMobs();
 			add(mobs);
+			
+			add(new HealthBar());
 		}
 		
 		override public function update():void
