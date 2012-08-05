@@ -9,6 +9,8 @@ package
 		private var sprite:Class;
 		[Embed(source = 'data/rock.png')]
 		private var rockSprite:Class;
+		[Embed(source = 'data/mess.png')]
+		private var messSprite:Class;
 		
 		private const walkingSpeed:Number = 60;
 		public static const maxHealth:Number = 8;
@@ -166,6 +168,7 @@ package
 		{
 			super.kill();
 			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
+			FlxG.state.add(new FlxSprite(x, y, messSprite));
 		}
 	}
 

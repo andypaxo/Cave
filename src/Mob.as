@@ -48,6 +48,9 @@ package
 		
 		private function doSeekPlayer():void 
 		{
+			if (Global.player.health <= 0)
+				return;
+			
 			var location:FlxPoint = getMidpoint();
 			var playerLocation:FlxPoint = Global.player.getMidpoint();
 			var path:FlxPath = Global.world.getTilemap().findPath(location, playerLocation);
@@ -57,6 +60,8 @@ package
 		
 		private function doAttackPlayer():void
 		{
+			if (Global.player.health <= 0)
+				return;
 			Global.player.hurt(attackStrength);
 		}
 		
