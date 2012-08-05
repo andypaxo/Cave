@@ -157,7 +157,7 @@ package
 		{
 			var fireball:FlxSprite = new Owie(x, y);
 			fireball.velocity = Util.scalePoint(facingToPoint(), 150);
-			FlxG.state.add(fireball);
+			playStage.addPlayerFire(fireball);
 		}
 		
 		private function updateGraphic():void

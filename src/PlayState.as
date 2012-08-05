@@ -36,7 +36,9 @@ package
 			add(mobs);
 			
 			add(new HealthBar());
+			
 			greatBallsOfFire = new FlxGroup();
+			add(greatBallsOfFire);
 			
 			FlxG.mouse.hide();
 		}
@@ -49,6 +51,13 @@ package
 			FlxG.collide(tilemap, Global.player);
 			FlxG.collide(tilemap, mobs);
 			FlxG.collide(mobs);
+			FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
+		}
+		
+		private function fireHitMob(mob:Mob, fire:FlxSprite):void
+		{
+			mob.hurt(1);
+			fire.kill();
 		}
 		
 		public function digAt(point:FlxPoint):void
@@ -59,6 +68,11 @@ package
 		public function rockAt(point:FlxPoint):uint
 		{
 			return tilemap.getTile(point.x / Global.tileSize, point.y / Global.tileSize);
+		}
+		
+		public function addPlayerFire(fireball:FlxSprite):void
+		{
+			greatBallsOfFire.add(fireball);
 		}
 	}
 }

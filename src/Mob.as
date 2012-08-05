@@ -21,6 +21,7 @@ package
 			loadGraphic(sprite, false, true);
 			seekPlayer = Global.createCooldown(doSeekPlayer, this, 1).execute;
 			attackPlayer = Global.createCooldown(doAttackPlayer, this, 2).execute;
+			health = 4;
 		}
 		
 		override public function update():void 
@@ -70,6 +71,21 @@ package
 		{
 			stopFollowingPath(true);
 			velocity = new FlxPoint();
+		}
+		
+		override public function hurt(Damage:Number):void 
+		{
+			if (!lockedOut())
+			{
+				super.hurt(Damage);
+				FlxG.state.add(new Owie(x, y));
+			}
+		}
+		
+		private function lockedOut():Boolean
+		{
+			//return controlLockout > 0;
+			return false;
 		}
 	}
 
