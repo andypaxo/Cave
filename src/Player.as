@@ -16,6 +16,7 @@ package
 		private var rockEmitter:FlxEmitter = new FlxEmitter(0,0,5);
 		
 		public var digAt:Function = new Function();
+		public var rockAt:Function = new Function();
 		
 		public function Player() 
 		{
@@ -27,7 +28,7 @@ package
 			rockEmitter.gravity = 80;
 		}
 		
-		public function createFX()
+		public function createFX():void
 		{
 			FlxG.state.add(rockEmitter);
 		}
@@ -105,7 +106,11 @@ package
 		}
 		
 		private function startDig():void {
-			diggingSpot = getPointInFront();
+			var pointToTryDigging:FlxPoint = getPointInFront();
+			if (!rockAt(pointToTryDigging))
+				return;
+			
+			diggingSpot = pointToTryDigging;
 			diggingTimeRemaining = timeToDig;
 			
 			rockEmitter.x = diggingSpot.x;
