@@ -11,7 +11,8 @@ package
 		
 		override public function create():void
 		{
-			tilemap = new World().getTilemap();
+			var world:World = new World();
+			tilemap = world.getTilemap();
 			player = new Player();
 			
 			var worldBounds:FlxRect = tilemap.getBounds();
@@ -29,6 +30,9 @@ package
 			add(tilemap);
 			add(player);
 			player.createFX();
+			
+			for each (var mob:Mob in world.makeMobs())
+				add(mob)
 		}
 		
 		override public function update():void
