@@ -10,7 +10,7 @@ package
 		
 		private static var cooldowns:Vector.<Cooldown> = new Vector.<Cooldown>();
 		
-		public static function CreateCooldown(callback:Function, thisArg:Object, length:Number):Cooldown
+		public static function createCooldown(callback:Function, thisArg:Object, length:Number):Cooldown
 		{
 			var result = new Cooldown(callback, thisArg, length);
 			cooldowns.push(result);

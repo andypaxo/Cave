@@ -8,12 +8,15 @@ package
 		private var sprite:Class;
 		
 		private const seekDistance:Number = 10 * Global.tileSize;
-		private const attackDistance:Number = 2 * Global.tileSize;
-		private var doneSeek:Boolean = false;
+		private const attackDistance:Number = 1.5 * Global.tileSize;
+		private const walkingSpeed:Number = 100;
+		
+		private var seekPlayer:Function;
 		
 		public function Mob(location:FlxPoint) 
 		{
 			super(location.x, location.y, sprite);
+			seekPlayer = Global.createCooldown(doSeekPlayer, this, 2).execute;
 		}
 		
 		override public function update():void 
@@ -25,21 +28,27 @@ package
 			var distanceToPlayer:Number = FlxU.getDistance(location, playerLocation);
 			
 			if (distanceToPlayer < seekDistance && distanceToPlayer > attackDistance)
-			{
-				if (!doneSeek) {
-					var path:FlxPath = Global.world.getTilemap().findPath(location, playerLocation);
-					if (path != null)
-					{
-						doneSeek = true;
-						followPath(path);
-					}
-				}
-			}
+				seekPlayer();
 			else
-			{
-				stopFollowingPath(true);
-				velocity = new FlxPoint();
-			}
+				stop();
+			
+			if (pathSpeed == 0)
+				stop();
+		}
+		
+		private function doSeekPlayer():void 
+		{
+			var location:FlxPoint = getMidpoint();
+			var playerLocation:FlxPoint = Global.player.getMidpoint();
+			var path:FlxPath = Global.world.getTilemap().findPath(location, playerLocation);
+			if (path != null)
+				followPath(path, walkingSpeed);
+		}
+		
+		private function stop():void 
+		{
+			stopFollowingPath(true);
+			velocity = new FlxPoint();
 		}
 	}
 

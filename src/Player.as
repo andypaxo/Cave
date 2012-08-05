@@ -10,6 +10,8 @@ package
 		[Embed(source = 'data/rock.png')]
 		private var rockSprite:Class;
 		
+		private const walkingSpeed:Number = 60;
+		
 		private var diggingSpot:FlxPoint = new FlxPoint( -1, -1);
 		private var diggingTimeRemaining:Number = 0;
 		private const timeToDig:Number = 0.4;
@@ -43,8 +45,6 @@ package
 		
 		private function walk():void
 		{
-			var walkingSpeed:Number = 60;
-			
 			if (FlxG.keys.UP || FlxG.keys.W)
 			{
 				velocity.y = -walkingSpeed;
@@ -102,7 +102,6 @@ package
 			diggingTimeRemaining = 0;
 			
 			rockEmitter.on = false;
-			FlxG.log("stopping...");
 		}
 		
 		private function startDig():void {
@@ -116,8 +115,6 @@ package
 			rockEmitter.x = diggingSpot.x;
 			rockEmitter.y = diggingSpot.y;
 			rockEmitter.start(false, 0.3, 0.1);
-			
-			FlxG.log("emitting...");
 		}
 		
 		private function continueDig():void {
