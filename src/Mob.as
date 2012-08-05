@@ -81,6 +81,11 @@ package
 				FlxG.state.add(new Owie(x, y));
 			}
 		}
+		override public function kill():void 
+		{
+			super.kill();
+			FlxG.state.add(new Mess(x, y));
+		}
 		
 		private function lockedOut():Boolean
 		{

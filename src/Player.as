@@ -205,7 +205,7 @@ package
 		{
 			super.kill();
 			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
-			FlxG.state.add(new FlxSprite(x, y, messSprite));
+			FlxG.state.add(new Mess(x, y));
 		}
 		
 		public function isDead():Boolean
