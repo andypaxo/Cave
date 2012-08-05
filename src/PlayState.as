@@ -33,12 +33,13 @@ package
 			player.createFX();
 			
 			for each (var mob:Mob in world.makeMobs())
-				add(mob)
+				add(mob);
 		}
 		
 		override public function update():void
 		{
 			super.update();
+			Global.update();
 			FlxG.collide(tilemap, Global.player);
 		}
 		
