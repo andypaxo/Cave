@@ -46,9 +46,9 @@ package
 			return result;
 		}
 		
-		public function makeMobs():Vector.<Mob>
+		public function makeMobs():FlxGroup
 		{
-			var result:Vector.<Mob> = new Vector.<Mob>();
+			var result:FlxGroup = new FlxGroup(maxPlacedItems);
 			
 			var placeableArea:FlxRect = new FlxRect(
 				placeableBorder, placeableBorder, 
@@ -61,7 +61,7 @@ package
 					Math.floor(Math.random() * placeableArea.height + placeableArea.top));
 					
 				if (tilemap.getTile(tileLocation.x, tileLocation.y) == 0)
-					result.push(new Mob(Util.scalePoint(tileLocation, Global.tileSize)));
+					result.add(new Mob(Util.scalePoint(tileLocation, Global.tileSize)));
 				else
 					tilemap.setTile(tileLocation.x, tileLocation.y, 2);
 			}

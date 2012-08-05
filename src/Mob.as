@@ -16,7 +16,7 @@ package
 		public function Mob(location:FlxPoint) 
 		{
 			super(location.x, location.y, sprite);
-			seekPlayer = Global.createCooldown(doSeekPlayer, this, 2).execute;
+			seekPlayer = Global.createCooldown(doSeekPlayer, this, 1).execute;
 		}
 		
 		override public function update():void 

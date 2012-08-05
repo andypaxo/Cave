@@ -6,6 +6,7 @@ package
 	public class PlayState extends FlxState
 	{		
 		private var tilemap:FlxTilemap;
+		private var mobs:FlxGroup;
 		
 		override public function create():void
 		{
@@ -32,15 +33,18 @@ package
 			add(player);
 			player.createFX();
 			
-			for each (var mob:Mob in world.makeMobs())
-				add(mob);
+			mobs = world.makeMobs();
+			add(mobs);
 		}
 		
 		override public function update():void
 		{
 			super.update();
 			Global.update();
+			
 			FlxG.collide(tilemap, Global.player);
+			FlxG.collide(tilemap, mobs);
+			FlxG.collide(mobs);
 		}
 		
 		private function digAt(point:FlxPoint):void
