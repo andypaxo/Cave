@@ -24,6 +24,8 @@ package
 			add(playButton);
 			
 			FlxG.mouse.show();
+			
+			Global.reset();
 		}
 		
 		override public function update():void

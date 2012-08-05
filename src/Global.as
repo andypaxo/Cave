@@ -29,6 +29,12 @@ package
 				cooldown.timeElapsed(FlxG.elapsed);
 			}
 		}
+		
+		public static function reset():void {
+			player = null;
+			world = null;
+			cooldowns = new Vector.<Cooldown>();
+		}
 	}
 
 }

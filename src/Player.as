@@ -21,10 +21,12 @@ package
 		private var rockEmitter:FlxEmitter = new FlxEmitter(0, 0, 5);
 		private var controlLockout:Number = 0;
 		
-		public var digAt:Function = new Function();
-		public var rockAt:Function = new Function();
+		private var playStage:PlayStage;
 		
-		public function Player() 
+		public var fire:Function;
+		public var fireCooldown:Cooldown;
+		
+		public function Player(playStage:PlayStage) 
 		{
 			loadGraphic(sprite, true);
 			
@@ -34,6 +36,10 @@ package
 			rockEmitter.gravity = 80;
 			
 			health = maxHealth;
+			this.playStage = playStage;
+			
+			fireCooldown = Global.createCooldown(doFire, this, 1);
+			fire = fireCooldown.execute;
 		}
 		
 		public function createFX():void
@@ -54,7 +60,7 @@ package
 			else
 			{
 				walk();
-				checkDig();
+				checkAction();
 				updateGraphic();
 			}
 		}
@@ -92,12 +98,21 @@ package
 			}
 		}
 		
-		private function checkDig():void
+		private function checkAction():void
 		{
 			if (FlxG.keys.SPACE)
-				dig();
+				digOrFire();
 			else
 				stopDig();
+		}
+		
+		private function digOrFire():void
+		{
+			var pointToTryDigging:FlxPoint = getPointInFront();
+			if (playStage.rockAt(pointToTryDigging))
+				dig();
+			else
+				fire();
 		}
 		
 		private function dig():void
@@ -106,7 +121,6 @@ package
 				continueDig();
 			else
 				startDig();
-			
 		}
 		
 		private function stopDig():void
@@ -120,12 +134,8 @@ package
 			rockEmitter.on = false;
 		}
 		
-		private function startDig():void {
-			var pointToTryDigging:FlxPoint = getPointInFront();
-			if (!rockAt(pointToTryDigging))
-				return;
-			
-			diggingSpot = pointToTryDigging;
+		private function startDig():void {			
+			diggingSpot = getPointInFront();
 			diggingTimeRemaining = timeToDig;
 			
 			rockEmitter.x = diggingSpot.x;
@@ -137,9 +147,17 @@ package
 			diggingTimeRemaining -= FlxG.elapsed;
 			if (diggingTimeRemaining <= 0)
 			{
-				digAt(diggingSpot);
+				playStage.digAt(diggingSpot);
 				stopDig();
+				fireCooldown.reset();
 			}
+		}
+		
+		private function doFire():void
+		{
+			var fireball:FlxSprite = new Owie(x, y);
+			fireball.velocity = Util.scalePoint(facingToPoint(), 150);
+			FlxG.state.add(fireball);
 		}
 		
 		private function updateGraphic():void
@@ -163,10 +181,15 @@ package
 		
 		private function getPointInFront():FlxPoint
 		{
-			var facingPoint:FlxPoint = new FlxPoint(
-				facing == LEFT ? -width : facing == RIGHT ? width : 0,
-				facing == UP ? -height : facing == DOWN ? height : 0);
+			var facingPoint:FlxPoint = Util.scalePoint(facingToPoint(), width);
 			return Util.addPoints(this.getMidpoint(), facingPoint);
+		}
+		
+		private function facingToPoint():FlxPoint
+		{
+			return new FlxPoint(
+				facing == LEFT ? -1 : facing == RIGHT ? 1 : 0,
+				facing == UP ? -1 : facing == DOWN ? 1 : 0);
 		}
 		
 		override public function hurt(Damage:Number):void 

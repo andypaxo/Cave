@@ -3,16 +3,17 @@ package
 
 	import org.flixel.*;
 
-	public class PlayState extends FlxState
+	public class PlayState extends FlxState implements PlayStage
 	{		
 		private var tilemap:FlxTilemap;
 		private var mobs:FlxGroup;
+		private var greatBallsOfFire:FlxGroup;
 		
 		override public function create():void
 		{
 			var world:World = new World();
 			tilemap = world.getTilemap();
-			var player:Player = new Player();
+			var player:Player = new Player(this);
 			
 			Global.world = world;
 			Global.player = player;
@@ -22,8 +23,6 @@ package
 			player.y = worldBounds.height / 2;
 			while (tilemap.overlaps(player))
 				player.y += 8;
-			player.digAt = digAt;
-			player.rockAt = rockAt;
 			
 			tilemap.follow(FlxG.camera);
 			
@@ -37,6 +36,9 @@ package
 			add(mobs);
 			
 			add(new HealthBar());
+			greatBallsOfFire = new FlxGroup();
+			
+			FlxG.mouse.hide();
 		}
 		
 		override public function update():void
@@ -49,14 +51,14 @@ package
 			FlxG.collide(mobs);
 		}
 		
-		private function digAt(point:FlxPoint):void
+		public function digAt(point:FlxPoint):void
 		{
 			tilemap.setTile(point.x / Global.tileSize, point.y / Global.tileSize, 0);
 		}
 		
-		private function rockAt(point:FlxPoint):Boolean
+		public function rockAt(point:FlxPoint):uint
 		{
-			return tilemap.getTile(point.x / Global.tileSize, point.y / Global.tileSize) > 0;
+			return tilemap.getTile(point.x / Global.tileSize, point.y / Global.tileSize);
 		}
 	}
 }

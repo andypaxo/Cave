@@ -15,7 +15,6 @@ package
 			loadGraphic(sprite, true);
 			addAnimation('default', [0, 1, 2, 3], 30);
 			play('default');
-			velocity = new FlxPoint(0, -100);
 			end = Global.createCooldown(kill, this, 0.3);
 			end.reset();
 		}
