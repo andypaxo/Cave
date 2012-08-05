@@ -20,10 +20,12 @@ package
 		public function Mob(location:FlxPoint) 
 		{
 			super(location.x, location.y);
-			loadGraphic(sprite, false, true);
+			loadGraphic(sprite, true, true);
 			seekPlayer = Global.createCooldown(doSeekPlayer, this, 1).execute;
 			attackPlayer = Global.createCooldown(doAttackPlayer, this, 2).execute;
-			health = 4;
+			
+			frame = Math.floor(Math.random() * frames);
+			health = Math.floor(2 + frame);
 		}
 		
 		override public function update():void 
