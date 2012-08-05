@@ -6,13 +6,15 @@ package
 	public class PlayState extends FlxState
 	{		
 		private var tilemap:FlxTilemap;
-		private var player:Player;
 		
 		override public function create():void
 		{
 			var world:World = new World();
 			tilemap = world.getTilemap();
-			player = new Player();
+			var player:Player = new Player();
+			
+			Global.world = world;
+			Global.player = player;
 			
 			var worldBounds:FlxRect = tilemap.getBounds();
 			player.x = worldBounds.width / 2;
@@ -37,7 +39,7 @@ package
 		override public function update():void
 		{
 			super.update();
-			FlxG.collide(tilemap, player);
+			FlxG.collide(tilemap, Global.player);
 		}
 		
 		private function digAt(point:FlxPoint):void
