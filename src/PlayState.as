@@ -26,6 +26,7 @@ package
 			
 			add(tilemap);
 			add(player);
+			player.createFX();
 		}
 		
 		override public function update():void

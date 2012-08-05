@@ -7,16 +7,29 @@ package
 	{
 		[Embed(source = 'data/player.png')]
 		private var sprite:Class;
+		[Embed(source = 'data/rock.png')]
+		private var rockSprite:Class;
 		
 		private var diggingSpot:FlxPoint = new FlxPoint( -1, -1);
 		private var diggingTimeRemaining:Number = 0;
-		private const timeToDig:Number = 0.6;
+		private const timeToDig:Number = 0.4;
+		private var rockEmitter:FlxEmitter = new FlxEmitter(0,0,5);
 		
 		public var digAt:Function = new Function();
 		
 		public function Player() 
 		{
 			loadGraphic(sprite, true);
+			
+			rockEmitter.makeParticles(rockSprite, rockEmitter.maxSize, 0, false, 0);
+			rockEmitter.setXSpeed( -30, 30);
+			rockEmitter.setYSpeed( -30, 15);
+			rockEmitter.gravity = 80;
+		}
+		
+		public function createFX()
+		{
+			FlxG.state.add(rockEmitter);
 		}
 		
 		override public function update():void 
@@ -81,13 +94,25 @@ package
 		
 		private function stopDig():void
 		{
+			if (diggingTimeRemaining == 0)
+				return;
+				
 			diggingSpot = new FlxPoint( -1, -1);
 			diggingTimeRemaining = 0;
+			
+			rockEmitter.on = false;
+			FlxG.log("stopping...");
 		}
 		
 		private function startDig():void {
 			diggingSpot = getPointInFront();
 			diggingTimeRemaining = timeToDig;
+			
+			rockEmitter.x = diggingSpot.x;
+			rockEmitter.y = diggingSpot.y;
+			rockEmitter.start(false, 0.3, 0.1);
+			
+			FlxG.log("emitting...");
 		}
 		
 		private function continueDig():void {
