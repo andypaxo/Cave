@@ -18,7 +18,8 @@ package
 		private var diggingSpot:FlxPoint = new FlxPoint( -1, -1);
 		private var diggingTimeRemaining:Number = 0;
 		private const timeToDig:Number = 0.4;
-		private var rockEmitter:FlxEmitter = new FlxEmitter(0,0,5);
+		private var rockEmitter:FlxEmitter = new FlxEmitter(0, 0, 5);
+		private var controlLockout:Number = 0;
 		
 		public var digAt:Function = new Function();
 		public var rockAt:Function = new Function();
@@ -43,9 +44,19 @@ package
 		override public function update():void 
 		{
 			super.update();
-			walk();
-			checkDig();
-			updateGraphic();
+			
+			if (lockedOut())
+			{
+				controlLockout -= FlxG.elapsed;
+				if (!lockedOut())
+					velocity = new FlxPoint();
+			}
+			else
+			{
+				walk();
+				checkDig();
+				updateGraphic();
+			}
 		}
 		
 		private function walk():void
@@ -160,8 +171,11 @@ package
 		
 		override public function hurt(Damage:Number):void 
 		{
-			super.hurt(Damage);
-			FlxG.state.add(new Owie(x, y));
+			if (!lockedOut())
+			{
+				super.hurt(Damage);
+				FlxG.state.add(new Owie(x, y));
+			}
 		}
 		
 		override public function kill():void 
@@ -169,6 +183,23 @@ package
 			super.kill();
 			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
 			FlxG.state.add(new FlxSprite(x, y, messSprite));
+		}
+		
+		public function isDead():Boolean
+		{
+			return health <= 0;
+		}
+		
+		public function knockBack(from:FlxPoint):void
+		{
+			velocity = Util.normalize(Util.subtract(getMidpoint(), from), 150);
+			controlLockout = 0.2;
+			flicker(0.2);
+		}
+		
+		private function lockedOut():Boolean
+		{
+			return controlLockout > 0;
 		}
 	}
 

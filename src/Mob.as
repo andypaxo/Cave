@@ -8,7 +8,7 @@ package
 		private var sprite:Class;
 		
 		private const seekDistance:Number = 10 * Global.tileSize;
-		private const attackDistance:Number = 1 * Global.tileSize;
+		private const attackDistance:Number = 1.1 * Global.tileSize;
 		private const walkingSpeed:Number = 100;
 		private const attackStrength:Number = 1;
 		
@@ -48,7 +48,7 @@ package
 		
 		private function doSeekPlayer():void 
 		{
-			if (Global.player.health <= 0)
+			if (Global.player.isDead())
 				return;
 			
 			var location:FlxPoint = getMidpoint();
@@ -60,9 +60,10 @@ package
 		
 		private function doAttackPlayer():void
 		{
-			if (Global.player.health <= 0)
+			if (Global.player.isDead())
 				return;
 			Global.player.hurt(attackStrength);
+			Global.player.knockBack(getMidpoint());
 		}
 		
 		private function stop():void 
