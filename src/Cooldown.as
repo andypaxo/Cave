@@ -23,10 +23,15 @@ package
 		{
 			if (timeRemaining <= 0)
 			{
-				timeRemaining = length;
+				reset();
 				return callback.apply(thisArg, arguments);
 			}
 			return null;
+		}
+		
+		public function reset():void
+		{
+			timeRemaining = length;
 		}
 	}
 

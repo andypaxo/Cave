@@ -8,16 +8,19 @@ package
 		private var sprite:Class;
 		
 		private const seekDistance:Number = 10 * Global.tileSize;
-		private const attackDistance:Number = 1.5 * Global.tileSize;
+		private const attackDistance:Number = 1 * Global.tileSize;
 		private const walkingSpeed:Number = 100;
+		private const attackStrength:Number = 1;
 		
 		private var seekPlayer:Function;
+		private var attackPlayer:Function;
 		
 		public function Mob(location:FlxPoint) 
 		{
 			super(location.x, location.y);
 			loadGraphic(sprite, false, true);
 			seekPlayer = Global.createCooldown(doSeekPlayer, this, 1).execute;
+			attackPlayer = Global.createCooldown(doAttackPlayer, this, 2).execute;
 		}
 		
 		override public function update():void 
@@ -32,6 +35,9 @@ package
 				seekPlayer();
 			else
 				stop();
+				
+			if (distanceToPlayer < attackDistance)
+				attackPlayer();
 			
 			if (pathSpeed == 0)
 				stop();
@@ -47,6 +53,11 @@ package
 			var path:FlxPath = Global.world.getTilemap().findPath(location, playerLocation);
 			if (path != null)
 				followPath(path, walkingSpeed);
+		}
+		
+		private function doAttackPlayer():void
+		{
+			Global.player.hurt(attackStrength);
 		}
 		
 		private function stop():void 

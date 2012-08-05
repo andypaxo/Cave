@@ -155,6 +155,18 @@ package
 				facing == UP ? -height : facing == DOWN ? height : 0);
 			return Util.addPoints(this.getMidpoint(), facingPoint);
 		}
+		
+		override public function hurt(Damage:Number):void 
+		{
+			super.hurt(Damage);
+			FlxG.state.add(new Owie(x, y));
+		}
+		
+		override public function kill():void 
+		{
+			super.kill();
+			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
+		}
 	}
 
 }

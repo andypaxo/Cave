@@ -17,6 +17,12 @@ package
 			return result;
 		}
 		
+		public static function removeCooldown(cooldown:Cooldown):void
+		{
+			var index:int = cooldowns.indexOf(cooldown);
+			cooldowns.splice(index, 1);
+		}
+		
 		public static function update():void
 		{
 			for each (var cooldown:Cooldown in cooldowns) {
