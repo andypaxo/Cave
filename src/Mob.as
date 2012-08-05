@@ -15,7 +15,8 @@ package
 		
 		public function Mob(location:FlxPoint) 
 		{
-			super(location.x, location.y, sprite);
+			super(location.x, location.y);
+			loadGraphic(sprite, false, true);
 			seekPlayer = Global.createCooldown(doSeekPlayer, this, 1).execute;
 		}
 		
@@ -34,6 +35,9 @@ package
 			
 			if (pathSpeed == 0)
 				stop();
+			else
+				facing = velocity.x > 0 ? RIGHT : LEFT;
+				
 		}
 		
 		private function doSeekPlayer():void 
