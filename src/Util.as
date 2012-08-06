@@ -28,6 +28,10 @@ package
 		public static function randomItemFrom(items:Array):Object {
 			return items[Math.floor(Math.random() * items.length)];
 		}
+		
+		public static function contains(bounds:FlxRect, point:FlxPoint):Boolean {
+			return point.x >= bounds.left && point.x <= bounds.right && point.y >= bounds.top && point.y <= bounds.bottom;
+		}
 	}
 
 }

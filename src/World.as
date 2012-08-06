@@ -11,8 +11,8 @@ package
 		
 		private const maxPlacedItems:int = 200;
 		private const placeableBorder:int = 2;
-		private const mapWidth:int = 200;
-		private const mapHeight:int = 200;
+		private const mapWidth:int = 150;
+		private const mapHeight:int = 150;
 		public var tileSize:int;
 		
 		private var tilemap:FlxTilemap;

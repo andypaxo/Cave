@@ -83,19 +83,23 @@ package
 				darkness.stamp(fire, fireOffset.x - fire.width / 2, fireOffset.y - fire.height / 2);
 			}
 			
+			var tilemapBounds:FlxRect = new FlxRect(
+				FlxG.camera.scroll.x / Global.world.tileSize - 2,
+				FlxG.camera.scroll.y / Global.world.tileSize - 2,
+				FlxG.camera.width / Global.world.tileSize + 4,
+				FlxG.camera.height / Global.world.tileSize + 4);
 			for each (var x:uint in tilemap.getTileInstances(2))
 			{
-				fireOffset = Util.addPoints(
-					Util.scalePoint(new FlxPoint(x % tilemap.widthInTiles, Math.floor(x / tilemap.widthInTiles)), Global.world.tileSize),
-					Util.scalePoint(FlxG.camera.scroll, -1));
-				fireOffset = Util.addPoints(fireOffset, new FlxPoint(5, 5));
-				var fireSize:Number = fire.width;
-				
-				if (fireOffset.x > -fireSize && fireOffset.x < FlxG.width + fireSize &&
-					fireOffset.y > -fireSize && fireOffset.y < FlxG.height + fireSize)
+				var tilePosition:FlxPoint = new FlxPoint(x % tilemap.widthInTiles, Math.floor(x / tilemap.widthInTiles));
+				if (Util.contains(tilemapBounds, tilePosition))
 				{
+					fireOffset = Util.addPoints(
+						Util.scalePoint(tilePosition, Global.world.tileSize),
+						Util.scalePoint(FlxG.camera.scroll, -1));
+					fireOffset = Util.addPoints(fireOffset, new FlxPoint(5, 5));
+					var fireSize:Number = fire.width;
+					
 					darkness.stamp(fire, fireOffset.x - fire.width / 2, fireOffset.y - fire.height / 2);
-					trace('Torch at ' + fireOffset.x + ', ' + fireOffset.y);
 				}
 			}
 			
@@ -108,9 +112,10 @@ package
 			Global.update();
 			
 			FlxG.collide(tilemap, Global.player);
-			FlxG.collide(tilemap, mobs);
+			//FlxG.collide(tilemap, mobs);
 			FlxG.collide(mobs);
-			FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
+			if (greatBallsOfFire.length)
+				FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
 			
 			for each (var fireball:FlxBasic in greatBallsOfFire.members)
 				if (!fireball.alive)
