@@ -9,7 +9,7 @@ package
 		[Embed(source = 'data/terrain.png')]
 		private var terrainSprite:Class;
 		
-		private const maxPlacedItems:int = 150;
+		private const maxPlacedItems:int = 100;
 		private const placeableBorder:int = 2;
 		private const mapWidth:int = 150;
 		private const mapHeight:int = 150;
@@ -37,6 +37,7 @@ package
 			var rockThreshold:uint = 0xff000044;
 			var gemsThreshold:uint = 0xff000066;
 			mapBitmap.threshold(noiseBitmap, noiseBitmap.rect, new Point(), ">", rockThreshold, 0xff888888, 0xff0000ff);
+			// Would be nice if we could actually use this
 			mapBitmap.threshold(noiseBitmap, noiseBitmap.rect, new Point(), ">", gemsThreshold, 0xffffffff, 0xff0000ff);
 			return mapBitmap;
 		}
@@ -51,8 +52,8 @@ package
 		}
 		
 		private function addRoomsTo(map:FlxTilemap):void {
-			for (var x:int = 5; x < mapWidth; x += 20)
-				for (var y:int = 5; y < mapHeight; y += 20)
+			for (var x:int = 10; x < mapWidth - 10; x += 20)
+				for (var y:int = 10; y < mapHeight - 10; y += 20)
 					if (Math.random() < roomFrequency)
 						placeRoom(map, x, y);
 		}

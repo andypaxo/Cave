@@ -23,6 +23,8 @@ package
 		private const walkingSpeed:Number = 70;
 		private const attackStrength:Number = 1;
 		
+		private var level:int;
+		
 		private var controlLockout:Number = 0;
 		
 		private var isSeeking:Boolean;
@@ -37,7 +39,8 @@ package
 			attackPlayer = Global.createCooldown(doAttackPlayer, this, 2).execute;
 			
 			frame = Math.floor(Math.random() * frames);
-			health = Math.floor(2 + frame);
+			level = frame;
+			health = Math.floor(1 + level);
 			sounds = [alertSound1, alertSound2, alertSound3];
 		}
 		
@@ -125,6 +128,7 @@ package
 		{
 			super.kill();
 			Global.spatter(this);
+			FlxG.score += 50 + level * 10;
 		}
 		
 		public function knockBack(from:FlxPoint):void

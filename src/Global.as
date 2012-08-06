@@ -38,6 +38,7 @@ package
 			player = null;
 			world = null;
 			cooldowns = new Vector.<Cooldown>();
+			FlxG.score = 0;
 		}
 	}
 

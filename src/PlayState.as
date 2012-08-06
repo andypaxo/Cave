@@ -57,6 +57,7 @@ package
 			fire = new FlxSprite(0, 0, fireballSprite);
 			
 			add(new HealthBar());
+			add(new ScoreBar());
 			
 			greatBallsOfFire = new FlxGroup();
 			add(greatBallsOfFire);
@@ -140,7 +141,10 @@ package
 		
 		public function digAt(point:FlxPoint):void
 		{
-			tilemap.setTile(point.x / Global.tileSize, point.y / Global.tileSize, 0);
+			var pos:FlxPoint = Util.scalePoint(point, 1 / Global.tileSize);
+			if (tilemap.getTile(pos.x, pos.y) == 2)
+				FlxG.score += 100;
+			tilemap.setTile(pos.x, pos.y, 0);
 		}
 		
 		public function rockAt(point:FlxPoint):uint
