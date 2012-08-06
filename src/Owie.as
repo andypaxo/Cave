@@ -15,7 +15,7 @@ package
 			loadGraphic(sprite, true);
 			addAnimation('default', [0, 1, 2, 3], 30);
 			play('default');
-			end = Global.createCooldown(kill, this, 0.3);
+			end = Global.createCooldown(kill, this, 0.5);
 			end.reset();
 		}
 		

@@ -8,10 +8,17 @@ package
 		[Embed(source = 'data/ambient.mp3')]
 		private var ambientSound:Class;
 		
+		[Embed(source = 'data/lamp.png')]
+		private var lampSprite:Class;
+		[Embed(source = 'data/fireball.png')]
+		private var fireballSprite:Class;
+		
 		private var tilemap:FlxTilemap;
 		private var mobs:FlxGroup;
 		private var greatBallsOfFire:FlxGroup;
 		
+		private var darkness:FlxSprite;
+	
 		override public function create():void
 		{
 			var world:World = new World();
@@ -38,13 +45,42 @@ package
 			mobs = world.makeMobs();
 			add(mobs);
 			
-			add(new HealthBar());
-			
 			greatBallsOfFire = new FlxGroup();
 			add(greatBallsOfFire);
 			
+			darkness = new FlxSprite(0,0);
+			darkness.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
+			darkness.scrollFactor.x = darkness.scrollFactor.y = 0;
+			darkness.blend = "multiply";
+			add(darkness);
+			
+			add(new HealthBar());
+			
 			FlxG.mouse.hide();
 			FlxG.playMusic(ambientSound);
+		}
+		
+		override public function draw():void {
+			darkness.fill(0xff000011);
+			
+			var lamp:FlxSprite = new FlxSprite(0, 0, lampSprite);
+			var lampOffset:FlxPoint = Util.addPoints(
+				Global.player.getScreenXY(),
+				new FlxPoint(Global.player.width / 2, Global.player.height / 2));
+			darkness.stamp(lamp, lampOffset.x - lamp.width / 2, lampOffset.y - lamp.height / 2);
+			
+			for each (var fireball:FlxSprite in greatBallsOfFire.members)
+			{
+				if (fireball == null)
+					continue;
+				var fireOffset:FlxPoint = Util.addPoints(
+					fireball.getScreenXY(),
+					new FlxPoint(fireball.width / 2, fireball.height / 2));
+				var fire:FlxSprite = new FlxSprite(0, 0, fireballSprite);
+				darkness.stamp(fire, fireOffset.x - fire.width / 2, fireOffset.y - fire.height / 2);
+			}
+			
+			super.draw();
 		}
 		
 		override public function update():void
@@ -56,6 +92,10 @@ package
 			FlxG.collide(tilemap, mobs);
 			FlxG.collide(mobs);
 			FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
+			
+			for each (var fireball:FlxBasic in greatBallsOfFire.members)
+				if (!fireball.alive)
+					greatBallsOfFire.remove(fireball, true);
 		}
 		
 		private function fireHitMob(mob:Mob, fire:FlxSprite):void
@@ -63,6 +103,9 @@ package
 			mob.hurt(1);
 			mob.knockBack(Global.player.getMidpoint());
 			fire.kill();
+			
+			if (mob.health <= 0)
+				mobs.remove(mob, true);
 		}
 		
 		public function digAt(point:FlxPoint):void
