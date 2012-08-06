@@ -14,6 +14,7 @@ package
 		private var fireballSprite:Class;
 		
 		private var tilemap:FlxTilemap;
+		private var floorDecals:FlxGroup;
 		private var mobs:FlxGroup;
 		private var greatBallsOfFire:FlxGroup;
 		
@@ -41,6 +42,9 @@ package
 			add(tilemap);
 			add(player);
 			player.createFX();
+			
+			floorDecals = new FlxGroup();
+			add(floorDecals);
 			
 			mobs = world.makeMobs();
 			add(mobs);
@@ -121,6 +125,11 @@ package
 		public function addPlayerFire(fireball:FlxSprite):void
 		{
 			greatBallsOfFire.add(fireball);
+		}
+		
+		public function addFloorDecal(decal:FlxSprite):void
+		{
+			floorDecals.add(decal);
 		}
 	}
 }

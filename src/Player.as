@@ -215,7 +215,7 @@ package
 		{
 			super.kill();
 			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
-			FlxG.state.add(new Mess(x, y));
+			Global.spatter(this);
 			FlxG.play(deathSound);
 		}
 		

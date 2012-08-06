@@ -23,6 +23,10 @@ package
 			cooldowns.splice(index, 1);
 		}
 		
+		public static function spatter(victim:FlxObject):void {
+			PlayState(FlxG.state).addFloorDecal(new Mess(victim.x, victim.y));
+		}
+		
 		public static function update():void
 		{
 			for each (var cooldown:Cooldown in cooldowns) {

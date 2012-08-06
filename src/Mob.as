@@ -124,7 +124,7 @@ package
 		override public function kill():void 
 		{
 			super.kill();
-			FlxG.state.add(new Mess(x, y));
+			Global.spatter(this);
 		}
 		
 		public function knockBack(from:FlxPoint):void
