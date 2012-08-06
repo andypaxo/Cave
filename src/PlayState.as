@@ -115,7 +115,7 @@ package
 			
 			var movingMobs:FlxGroup = new FlxGroup();
 			for each (var mob:Mob in mobs)
-				if (mob.velocity.x != 0 && mob.velocity.y != 0)
+				if (mob.velocity.x != 0 || mob.velocity.y != 0)
 					movingMobs.add(mob);
 			FlxG.collide(tilemap, movingMobs);
 			FlxG.collide(movingMobs);

@@ -20,7 +20,7 @@ package
 		private const startSeekDistance:Number = 10 * Global.tileSize;
 		private const endSeekDistance:Number = 20 * Global.tileSize;
 		private const attackDistance:Number = 1.1 * Global.tileSize;
-		private const walkingSpeed:Number = 100;
+		private const walkingSpeed:Number = 70;
 		private const attackStrength:Number = 1;
 		
 		private var controlLockout:Number = 0;

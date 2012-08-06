@@ -9,7 +9,7 @@ package
 		[Embed(source = 'data/terrain.png')]
 		private var terrainSprite:Class;
 		
-		private const maxPlacedItems:int = 70;
+		private const maxPlacedItems:int = 100;
 		private const placeableBorder:int = 2;
 		private const mapWidth:int = 150;
 		private const mapHeight:int = 150;

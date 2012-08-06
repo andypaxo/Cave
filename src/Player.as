@@ -148,7 +148,7 @@ package
 			rockEmitter.x = diggingSpot.x;
 			rockEmitter.y = diggingSpot.y;
 			rockEmitter.start(false, 0.3, 0.1);
-			FlxG.play(digSound, 0.4);
+			FlxG.play(digSound, 0.2);
 		}
 		
 		private function continueDig():void {
