@@ -13,6 +13,7 @@ package
 		private const placeableBorder:int = 2;
 		private const mapWidth:int = 200;
 		private const mapHeight:int = 200;
+		public var tileSize:int;
 		
 		private var tilemap:FlxTilemap;
 		
@@ -20,6 +21,7 @@ package
 		{
 			var noiseBitmap:BitmapData = makeSomeNoise();
 			tilemap = makeTilemapFrom(noiseBitmap);
+			tileSize = tilemap.width / tilemap.widthInTiles;
 		}
 		
 		public function getTilemap():FlxTilemap {

@@ -19,6 +19,7 @@ package
 		private var greatBallsOfFire:FlxGroup;
 		
 		private var darkness:FlxSprite;
+		private var fire:FlxSprite;
 	
 		override public function create():void
 		{
@@ -54,6 +55,7 @@ package
 			darkness.scrollFactor.x = darkness.scrollFactor.y = 0;
 			darkness.blend = "multiply";
 			add(darkness);
+			fire = new FlxSprite(0, 0, fireballSprite);
 			
 			add(new HealthBar());
 			
@@ -75,13 +77,26 @@ package
 			
 			for each (var fireball:FlxSprite in greatBallsOfFire.members)
 			{
-				if (fireball == null)
-					continue;
 				var fireOffset:FlxPoint = Util.addPoints(
 					fireball.getScreenXY(),
 					new FlxPoint(fireball.width / 2, fireball.height / 2));
-				var fire:FlxSprite = new FlxSprite(0, 0, fireballSprite);
 				darkness.stamp(fire, fireOffset.x - fire.width / 2, fireOffset.y - fire.height / 2);
+			}
+			
+			for each (var x:uint in tilemap.getTileInstances(2))
+			{
+				fireOffset = Util.addPoints(
+					Util.scalePoint(new FlxPoint(x % tilemap.widthInTiles, Math.floor(x / tilemap.widthInTiles)), Global.world.tileSize),
+					Util.scalePoint(FlxG.camera.scroll, -1));
+				fireOffset = Util.addPoints(fireOffset, new FlxPoint(5, 5));
+				var fireSize:Number = fire.width;
+				
+				if (fireOffset.x > -fireSize && fireOffset.x < FlxG.width + fireSize &&
+					fireOffset.y > -fireSize && fireOffset.y < FlxG.height + fireSize)
+				{
+					darkness.stamp(fire, fireOffset.x - fire.width / 2, fireOffset.y - fire.height / 2);
+					trace('Torch at ' + fireOffset.x + ', ' + fireOffset.y);
+				}
 			}
 			
 			super.draw();
