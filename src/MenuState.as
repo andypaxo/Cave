@@ -18,6 +18,13 @@ package
 			Title.alignment = "center";
 			add(Title);
 			
+			if (FlxG.score > 0)
+			{
+				var score:FlxText = new FlxText(0, FlxG.height / 4, FlxG.width, "Score : " + FlxG.score);
+				score.alignment = "center";
+				add(score);
+			}
+			
 			playButton = new FlxButton(FlxG.width/2-40,FlxG.height / 3 + 100, "Descend", onPlay);
 			playButton.color = 0xffD4D943;
 			playButton.label.color = 0xffD8EBA2;

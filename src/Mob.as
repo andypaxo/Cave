@@ -128,7 +128,7 @@ package
 		{
 			super.kill();
 			Global.spatter(this);
-			Global.addScore(50 + level * 10);
+			Global.addScore(getMidpoint(), 50 + level * 10);
 		}
 		
 		public function knockBack(from:FlxPoint):void
