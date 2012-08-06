@@ -45,7 +45,7 @@ package
 			health = maxHealth;
 			this.playStage = playStage;
 			
-			fireCooldown = Global.createCooldown(doFire, this, 0.8);
+			fireCooldown = Global.createCooldown(doFire, this, 0.5);
 			fire = fireCooldown.execute;
 		}
 		

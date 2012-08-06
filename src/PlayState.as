@@ -45,9 +45,6 @@ package
 			mobs = world.makeMobs();
 			add(mobs);
 			
-			greatBallsOfFire = new FlxGroup();
-			add(greatBallsOfFire);
-			
 			darkness = new FlxSprite(0,0);
 			darkness.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
 			darkness.scrollFactor.x = darkness.scrollFactor.y = 0;
@@ -55,6 +52,9 @@ package
 			add(darkness);
 			
 			add(new HealthBar());
+			
+			greatBallsOfFire = new FlxGroup();
+			add(greatBallsOfFire);
 			
 			FlxG.mouse.hide();
 			FlxG.playMusic(ambientSound);
