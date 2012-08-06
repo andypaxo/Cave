@@ -13,6 +13,7 @@ package
 		private const placeableBorder:int = 2;
 		private const mapWidth:int = 150;
 		private const mapHeight:int = 150;
+		private const roomFrequency:Number = 0.6;
 		public var tileSize:int;
 		
 		private var tilemap:FlxTilemap;
@@ -45,7 +46,21 @@ package
 			
 			var result:FlxTilemap = new FlxTilemap();
 			result.loadMap(mapData, terrainSprite, 0, 0, FlxTilemap.OFF, 0, 0);
+			addRoomsTo(result);
 			return result;
+		}
+		
+		private function addRoomsTo(map:FlxTilemap):void {
+			for (var x:int = 5; x < mapWidth; x += 20)
+				for (var y:int = 5; y < mapHeight; y += 20)
+					if (Math.random() < roomFrequency)
+						placeRoom(map, x, y);
+		}
+		
+		private function placeRoom(map:FlxTilemap, x:int, y:int):void {
+			for (var cx:int = 0; cx < 9; cx ++)
+				for (var cy:int = 0; cy < 9; cy ++)
+					map.setTile(cx + x, cy + y, ((cx == 0 || cx == 8 || cy == 0 || cy == 8) && !(cx == 4 || cy == 4)) ? 3 : 0);
 		}
 		
 		public function makeMobs():FlxGroup
