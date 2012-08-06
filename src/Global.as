@@ -4,6 +4,13 @@ package
 	
 	public class Global 
 	{
+		public static const floorTile:int = 0;
+		public static const rockTile:int = 1;
+		public static const gemTile:int = 2;
+		public static const wallTile:int = 3;
+		public static const chestClosedTile:int = 4;
+		public static const chestOpenTile:int = 5;
+		
 		public static const tileSize:int = 10;
 		public static var player:Player;
 		public static var world:World;

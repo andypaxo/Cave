@@ -145,9 +145,19 @@ package
 		public function digAt(point:FlxPoint):void
 		{
 			var pos:FlxPoint = Util.scalePoint(point, 1 / Global.tileSize);
-			if (tilemap.getTile(pos.x, pos.y) == 2)
+			var tileType:uint = tilemap.getTile(pos.x, pos.y);
+			
+			if (tileType == Global.chestClosedTile)
+			{
+				Global.addScore(point, 400);
+				tilemap.setTile(pos.x, pos.y, Global.chestOpenTile);
+				return;
+			}
+			
+			if (tileType == Global.gemTile)
 				Global.addScore(point, 100);
-			tilemap.setTile(pos.x, pos.y, 0);
+			
+			tilemap.setTile(pos.x, pos.y, Global.floorTile);
 		}
 		
 		public function rockAt(point:FlxPoint):uint

@@ -61,7 +61,12 @@ package
 		private function placeRoom(map:FlxTilemap, x:int, y:int):void {
 			for (var cx:int = 0; cx < 9; cx ++)
 				for (var cy:int = 0; cy < 9; cy ++)
-					map.setTile(cx + x, cy + y, ((cx == 0 || cx == 8 || cy == 0 || cy == 8) && !(cx == 4 || cy == 4)) ? 3 : 0);
+					map.setTile(
+						cx + x, cy + y, ((cx == 0 || cx == 8 || cy == 0 || cy == 8) && !(cx == 4 || cy == 4))
+						? Global.wallTile
+						: Global.floorTile);
+			if (Math.random() > 0.6)
+				map.setTile(x + 4, y + 4, Global.chestClosedTile);
 		}
 		
 		public function makeMobs():FlxGroup
