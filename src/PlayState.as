@@ -40,11 +40,11 @@ package
 			FlxG.camera.follow(player, FlxCamera.STYLE_TOPDOWN_TIGHT);
 			
 			add(tilemap);
-			add(player);
-			player.createFX();
-			
 			floorDecals = new FlxGroup();
 			add(floorDecals);
+			
+			add(player);
+			player.createFX();
 			
 			mobs = world.makeMobs();
 			add(mobs);

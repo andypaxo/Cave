@@ -42,7 +42,7 @@ package
 			var mapData:String = FlxTilemap.bitmapToCSV(tileData);
 			
 			var result:FlxTilemap = new FlxTilemap();
-			result.loadMap(mapData, terrainSprite);
+			result.loadMap(mapData, terrainSprite, 0, 0, FlxTilemap.OFF, 0, 0);
 			return result;
 		}
 		
