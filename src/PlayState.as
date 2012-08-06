@@ -25,27 +25,26 @@ package
 		{
 			var world:World = new World();
 			tilemap = world.getTilemap();
-			var player:Player = new Player(this);
+			Global.player = new Player(this);
 			
 			Global.world = world;
-			Global.player = player;
 			
 			var worldBounds:FlxRect = tilemap.getBounds();
-			player.x = worldBounds.width / 2;
-			player.y = worldBounds.height / 2;
-			while (tilemap.overlaps(player))
-				player.y += 8;
+			Global.player.x = worldBounds.width / 2;
+			Global.player.y = worldBounds.height / 2;
+			while (tilemap.overlaps(Global.player))
+				Global.player.y += 8;
 			
 			tilemap.follow(FlxG.camera);
 			
-			FlxG.camera.follow(player, FlxCamera.STYLE_TOPDOWN_TIGHT);
+			FlxG.camera.follow(Global.player, FlxCamera.STYLE_TOPDOWN_TIGHT);
 			
 			add(tilemap);
 			floorDecals = new FlxGroup();
 			add(floorDecals);
 			
-			add(player);
-			player.createFX();
+			add(Global.player);
+			Global.player.createFX();
 			
 			mobs = world.makeMobs();
 			add(mobs);

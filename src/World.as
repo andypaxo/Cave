@@ -9,7 +9,7 @@ package
 		[Embed(source = 'data/terrain.png')]
 		private var terrainSprite:Class;
 		
-		private const maxPlacedItems:int = 100;
+		private const maxPlacedItems:int = 150;
 		private const placeableBorder:int = 2;
 		private const mapWidth:int = 150;
 		private const mapHeight:int = 150;
@@ -63,12 +63,18 @@ package
 					Math.floor(Math.random() * placeableArea.height + placeableArea.top));
 					
 				if (tilemap.getTile(tileLocation.x, tileLocation.y) == 0)
-					result.add(new Mob(Util.scalePoint(tileLocation, Global.tileSize)));
+					addMob(tileLocation, result);
 				else
 					tilemap.setTile(tileLocation.x, tileLocation.y, 2);
 			}
 			
 			return result;
+		}
+		
+		private function addMob(location:FlxPoint, group:FlxGroup):void {
+			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
+			if (FlxU.getDistance(pixelLocation, Global.player.getMidpoint()) > 16 * tileSize)
+				group.add(new Mob(pixelLocation));
 		}
 		
 		private function indexToLocation(index:int):FlxPoint
