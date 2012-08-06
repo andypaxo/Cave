@@ -128,7 +128,7 @@ package
 		{
 			super.kill();
 			Global.spatter(this);
-			FlxG.score += 50 + level * 10;
+			Global.addScore(50 + level * 10);
 		}
 		
 		public function knockBack(from:FlxPoint):void

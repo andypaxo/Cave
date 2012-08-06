@@ -7,7 +7,7 @@ package
 		
 		public function ScoreBar() 
 		{
-			super(2, FlxG.height - 16, 150, 'Nil');
+			super(2, FlxG.height - 16, 150);
 			scrollFactor = new FlxPoint();
 		}
 		

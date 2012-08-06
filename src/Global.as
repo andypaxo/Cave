@@ -27,6 +27,12 @@ package
 			PlayState(FlxG.state).addFloorDecal(new Mess(victim.x, victim.y));
 		}
 		
+		public static function addScore(location:FlxPoint, score:int)
+		{
+			FlxG.score += score;
+			PlayState(FlxG.state).sfx.add(new ScoreWidget(location, score));
+		}
+		
 		public static function update():void
 		{
 			for each (var cooldown:Cooldown in cooldowns) {

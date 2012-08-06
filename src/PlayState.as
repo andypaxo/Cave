@@ -17,6 +17,7 @@ package
 		private var floorDecals:FlxGroup;
 		private var mobs:FlxGroup;
 		private var greatBallsOfFire:FlxGroup;
+		public var sfx:FlxGroup;
 		
 		private var darkness:FlxSprite;
 		private var fire:FlxSprite;
@@ -61,6 +62,8 @@ package
 			
 			greatBallsOfFire = new FlxGroup();
 			add(greatBallsOfFire);
+			sfx = new FlxGroup();
+			add(sfx);
 			
 			FlxG.mouse.hide();
 			FlxG.playMusic(ambientSound);
@@ -143,7 +146,7 @@ package
 		{
 			var pos:FlxPoint = Util.scalePoint(point, 1 / Global.tileSize);
 			if (tilemap.getTile(pos.x, pos.y) == 2)
-				FlxG.score += 100;
+				Global.addScore(point, 100);
 			tilemap.setTile(pos.x, pos.y, 0);
 		}
 		
