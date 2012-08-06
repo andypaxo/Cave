@@ -24,6 +24,10 @@ package
 			var magnitude:Number = FlxU.getDistance(new FlxPoint(), point);
 			return new FlxPoint(scale * point.x / magnitude, scale * point.y / magnitude);
 		}
+		
+		public static function randomItemFrom(items:Array):Object {
+			return items[Math.floor(Math.random() * items.length)];
+		}
 	}
 
 }

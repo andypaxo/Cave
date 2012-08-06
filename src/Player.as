@@ -12,6 +12,11 @@ package
 		[Embed(source = 'data/mess.png')]
 		private var messSprite:Class;
 		
+		[Embed(source = 'data/death.mp3')]
+		private var deathSound:Class;		
+		[Embed(source = 'data/player-hurt.mp3')]
+		private var hurtSound:Class;
+		
 		private const walkingSpeed:Number = 60;
 		public static const maxHealth:Number = 8;
 		
@@ -199,6 +204,7 @@ package
 			{
 				super.hurt(Damage);
 				FlxG.state.add(new Owie(x, y));
+				FlxG.play(hurtSound);
 			}
 		}
 		
@@ -207,6 +213,7 @@ package
 			super.kill();
 			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
 			FlxG.state.add(new Mess(x, y));
+			FlxG.play(deathSound);
 		}
 		
 		public function isDead():Boolean

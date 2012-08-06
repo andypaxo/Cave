@@ -7,13 +7,25 @@ package
 		[Embed(source = 'data/goblin.png')]
 		private var sprite:Class;
 		
-		private const seekDistance:Number = 10 * Global.tileSize;
+		[Embed(source = 'data/mob-hurt.mp3')]
+		private var hurtSound:Class;
+		[Embed(source = 'data/mob-alert-1.mp3')]
+		private var alertSound1:Class;
+		[Embed(source = 'data/mob-alert-2.mp3')]
+		private var alertSound2:Class;
+		[Embed(source = 'data/mob-alert-3.mp3')]
+		private var alertSound3:Class;
+		private var sounds:Array;
+		
+		private const startSeekDistance:Number = 10 * Global.tileSize;
+		private const endSeekDistance:Number = 20 * Global.tileSize;
 		private const attackDistance:Number = 1.1 * Global.tileSize;
 		private const walkingSpeed:Number = 100;
 		private const attackStrength:Number = 1;
 		
 		private var controlLockout:Number = 0;
 		
+		private var isSeeking:Boolean;
 		private var seekPlayer:Function;
 		private var attackPlayer:Function;
 		
@@ -26,6 +38,7 @@ package
 			
 			frame = Math.floor(Math.random() * frames);
 			health = Math.floor(2 + frame);
+			sounds = [alertSound1, alertSound2, alertSound3];
 		}
 		
 		override public function update():void 
@@ -50,7 +63,16 @@ package
 			var playerLocation:FlxPoint = Global.player.getMidpoint();
 			var distanceToPlayer:Number = FlxU.getDistance(location, playerLocation);
 			
-			if (distanceToPlayer < seekDistance && distanceToPlayer > attackDistance)
+			var wasSeeking:Boolean = isSeeking;
+			isSeeking =
+				distanceToPlayer > attackDistance &&
+				(distanceToPlayer < startSeekDistance ||
+				isSeeking && distanceToPlayer < endSeekDistance);
+			
+			if (!wasSeeking && isSeeking)
+				FlxG.play(Class(Util.randomItemFrom(sounds)));
+				
+			if (isSeeking)
 				seekPlayer();
 			else
 				stop();
@@ -96,6 +118,7 @@ package
 			{
 				super.hurt(Damage);
 				FlxG.state.add(new Owie(x, y));
+				FlxG.play(hurtSound);
 			}
 		}
 		override public function kill():void 
