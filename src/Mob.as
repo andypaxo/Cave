@@ -70,7 +70,7 @@ package
 				isSeeking && distanceToPlayer < endSeekDistance);
 			
 			if (!wasSeeking && isSeeking)
-				FlxG.play(Class(Util.randomItemFrom(sounds)));
+				FlxG.play(Class(Util.randomItemFrom(sounds)), 0.3);
 				
 			if (isSeeking)
 				seekPlayer();
@@ -118,7 +118,7 @@ package
 			{
 				super.hurt(Damage);
 				FlxG.state.add(new Owie(x, y));
-				FlxG.play(hurtSound);
+				FlxG.play(hurtSound, 0.2);
 			}
 		}
 		override public function kill():void 

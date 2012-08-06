@@ -148,7 +148,7 @@ package
 			rockEmitter.x = diggingSpot.x;
 			rockEmitter.y = diggingSpot.y;
 			rockEmitter.start(false, 0.3, 0.1);
-			FlxG.play(digSound);
+			FlxG.play(digSound, 0.4);
 		}
 		
 		private function continueDig():void {
@@ -207,7 +207,7 @@ package
 			{
 				super.hurt(Damage);
 				FlxG.state.add(new Owie(x, y));
-				FlxG.play(hurtSound);
+				FlxG.play(hurtSound, 0.2);
 			}
 		}
 		
@@ -216,7 +216,7 @@ package
 			super.kill();
 			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
 			Global.spatter(this);
-			FlxG.play(deathSound);
+			FlxG.play(deathSound, 0.4);
 		}
 		
 		public function isDead():Boolean
