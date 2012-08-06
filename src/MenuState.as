@@ -18,13 +18,14 @@ package
 			Title.alignment = "center";
 			add(Title);
 			
-			playButton = new FlxButton(FlxG.width/2-40,FlxG.height / 3 + 100, "Click To Play", onPlay);
+			playButton = new FlxButton(FlxG.width/2-40,FlxG.height / 3 + 100, "Descend", onPlay);
 			playButton.color = 0xffD4D943;
 			playButton.label.color = 0xffD8EBA2;
 			add(playButton);
 			
 			FlxG.mouse.show();
-			
+			if (FlxG.music)
+				FlxG.music.stop();
 			Global.reset();
 		}
 		

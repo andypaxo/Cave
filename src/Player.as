@@ -16,6 +16,8 @@ package
 		private var deathSound:Class;		
 		[Embed(source = 'data/player-hurt.mp3')]
 		private var hurtSound:Class;
+		[Embed(source = 'data/dig.mp3')]
+		private var digSound:Class;
 		
 		private const walkingSpeed:Number = 60;
 		public static const maxHealth:Number = 8;
@@ -43,7 +45,7 @@ package
 			health = maxHealth;
 			this.playStage = playStage;
 			
-			fireCooldown = Global.createCooldown(doFire, this, 1);
+			fireCooldown = Global.createCooldown(doFire, this, 0.8);
 			fire = fireCooldown.execute;
 		}
 		
@@ -146,6 +148,7 @@ package
 			rockEmitter.x = diggingSpot.x;
 			rockEmitter.y = diggingSpot.y;
 			rockEmitter.start(false, 0.3, 0.1);
+			FlxG.play(digSound);
 		}
 		
 		private function continueDig():void {

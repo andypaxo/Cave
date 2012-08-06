@@ -5,6 +5,9 @@ package
 
 	public class PlayState extends FlxState implements PlayStage
 	{		
+		[Embed(source = 'data/ambient.mp3')]
+		private var ambientSound:Class;
+		
 		private var tilemap:FlxTilemap;
 		private var mobs:FlxGroup;
 		private var greatBallsOfFire:FlxGroup;
@@ -41,6 +44,7 @@ package
 			add(greatBallsOfFire);
 			
 			FlxG.mouse.hide();
+			FlxG.playMusic(ambientSound);
 		}
 		
 		override public function update():void
