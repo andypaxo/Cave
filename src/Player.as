@@ -122,6 +122,7 @@ package
 			switch (tileType) {
 				case Global.rockTile:
 				case Global.gemTile:
+				case Global.wallTile:
 					dig();
 					break;
 				case Global.chestClosedTile:
