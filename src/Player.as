@@ -109,7 +109,7 @@ package
 		
 		private function checkAction():void
 		{
-			if (FlxG.keys.SPACE)
+			if (FlxG.keys.SPACE || FlxG.keys.CONTROL)
 				digOrFire();
 			else
 				stopDig();
