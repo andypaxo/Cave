@@ -11,9 +11,16 @@ package
 		
 		private const maxPlacedItems:int = 100;
 		private const placeableBorder:int = 2;
-		private const mapWidth:int = 150;
-		private const mapHeight:int = 150;
+		
 		private const roomFrequency:Number = 0.6;
+		private const roomSize:Number = 9;
+		private const roomSpacing:Number = 4;
+		private const widthInRooms:Number = 13;
+		
+		private const mapWidth:int = (roomSize + roomSpacing) * widthInRooms + roomSpacing;
+		private const mapHeight:int = mapWidth;
+		
+		
 		public var tileSize:int;
 		
 		private var tilemap:FlxTilemap;
@@ -52,17 +59,33 @@ package
 		}
 		
 		private function addRoomsTo(map:FlxTilemap):void {
-			for (var x:int = 10; x < mapWidth - 10; x += 20)
-				for (var y:int = 10; y < mapHeight - 10; y += 20)
-					if (Math.random() < roomFrequency)
-						placeRoom(map, x, y);
+			var rooms:Array = [];
+			for (var x:int = 0; x < widthInRooms; x++)
+			{
+				rooms.push([]);
+				for (var y:int = 0; y < widthInRooms; y++)
+					rooms[x][y] = Math.random() < roomFrequency;
+			}
+					
+			var centreRoom:int = Math.floor(widthInRooms / 2);
+			rooms[centreRoom][centreRoom] = true;
+				
+			for (x = 0; x < widthInRooms; x++)
+				for (y = 0; y < widthInRooms; y++)
+					if (rooms[x][y])
+						placeRoom(
+							map,
+							x * (roomSize + roomSpacing) + roomSpacing,
+							y * (roomSize + roomSpacing) + roomSpacing);
 		}
 		
 		private function placeRoom(map:FlxTilemap, x:int, y:int):void {
-			for (var cx:int = 0; cx < 9; cx ++)
-				for (var cy:int = 0; cy < 9; cy ++)
+			for (var cx:int = 0; cx < roomSize; cx ++)
+				for (var cy:int = 0; cy < roomSize; cy ++)
 					map.setTile(
-						cx + x, cy + y, ((cx == 0 || cx == 8 || cy == 0 || cy == 8) && !(cx == 4 || cy == 4))
+						cx + x, cy + y,
+							((cx == 0 || cx == 8 || cy == 0 || cy == 8) && // All the outer walls
+							!((cx >= 3 && cx <= 5) || (cy >= 3 && cy <= 5))) // Leave room for a passageway
 						? Global.wallTile
 						: Global.floorTile);
 			if (Math.random() > 0.6)
