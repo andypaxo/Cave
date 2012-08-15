@@ -12,7 +12,7 @@ package
 		private const maxPlacedItems:int = 100;
 		private const placeableBorder:int = 2;
 		
-		private const roomFrequency:Number = 0.6;
+		private const roomFrequency:Number = 0.4;
 		private const roomSize:Number = 9;
 		private const roomSpacing:Number = 4;
 		private const widthInRooms:Number = 13;
@@ -76,18 +76,41 @@ package
 						placeRoom(
 							map,
 							x * (roomSize + roomSpacing) + roomSpacing,
-							y * (roomSize + roomSpacing) + roomSpacing);
+							y * (roomSize + roomSpacing) + roomSpacing,
+							x > 0 && rooms[x - 1][y],
+							y > 0 && rooms[x][y - 1]);
 		}
 		
-		private function placeRoom(map:FlxTilemap, x:int, y:int):void {
+		private function placeRoom(map:FlxTilemap, x:int, y:int, passageWest:Boolean, passageNorth:Boolean):void {
 			for (var cx:int = 0; cx < roomSize; cx ++)
 				for (var cy:int = 0; cy < roomSize; cy ++)
 					map.setTile(
-						cx + x, cy + y,
+							cx + x,
+							cy + y,
 							((cx == 0 || cx == 8 || cy == 0 || cy == 8) && // All the outer walls
 							!((cx >= 3 && cx <= 5) || (cy >= 3 && cy <= 5))) // Leave room for a passageway
-						? Global.wallTile
-						: Global.floorTile);
+								? Global.wallTile
+								: Global.floorTile);
+			
+			if (passageWest)
+				for (cx = 0; cx >= -roomSpacing; cx--)
+					for (cy = 2; cy < 7; cy++)
+							map.setTile(
+							cx + x,
+							cy + y,
+							cy == 2 || cy == 6
+								? Global.wallTile
+								: Global.floorTile);
+			if (passageNorth)
+				for (cx = 2; cx < 7; cx++)
+					for (cy = 0; cy >= -roomSpacing; cy--)
+							map.setTile(
+							cx + x,
+							cy + y,
+							cx == 2 || cx == 6
+								? Global.wallTile
+								: Global.floorTile);
+			
 			if (Math.random() > 0.6)
 				map.setTile(x + 4, y + 4, Global.chestClosedTile);
 		}
