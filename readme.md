@@ -3,7 +3,7 @@ This is a little project to play with Flash / Flixel
 
 The graphics are stolen / adapted from [Oryx's entry to the Assemblee competition](http://forums.tigsource.com/index.php?topic=8970.0/]).
 
-The soundtrack is from [DJ Chronos](http://www.freesound.org/people/DJ%20Chronos/)
+The soundtrack was created by [Dan Oberbauer](http://www.freesound.org/people/DJ%20Chronos/)
 
 To build:
 1. Install [FlashDevelop](http://www.flashdevelop.org)
