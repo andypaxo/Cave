@@ -1,88 +1,51 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Cave by andypaxo</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    
-  <script type="text/javascript">
-  
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-16526325-3']);
-    _gaq.push(['_trackPageview']);
-  
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  
-  </script>
-  </head>
-  <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/andypaxo/Cave">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/andypaxo/Cave/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/andypaxo/Cave/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+	<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-16526325-3']);
+			_gaq.push(['_trackPageview']);
 
-    <div class="wrapper">
+			(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</head>
+  <body><div class="master-container">
 
-      <section>
-        <div id="title">
-          <h1>Cave</h1>
-          <p>Just some messing around in Flash / Flixel</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/andypaxo">andypaxo</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
-        </div>
-
-        <p>This is a little project to play with Flash / Flixel</p>
-
-<p>The graphics are stolen / adapted from <a href="http://forums.tigsource.com/index.php?topic=8970.0/%5D">Oryx's entry to the Assemblee competition</a>.</p>
-
-<p>The soundtrack was created by <a href="http://www.freesound.org/people/DJ%20Chronos/">Dan Oberbauer</a></p>
-
-<p>To build:
-1. Install <a href="http://www.flashdevelop.org">FlashDevelop</a>
-2. Download <a href="http://flixel.org">Flixel 2.5</a> and put it next to the project, so your directory looks like this:</p>
-
-<pre><code>- cave
-- flixel
-  - org
-    - flixel
-      ...
-</code></pre>
-
-<p>Then just build and run in FlashDevelop</p>
-      </section>
-
+		<div class="game">
+    <object width="480" height="480" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+			<object type="application/x-shockwave-flash" data="bin/Cave.swf" width="480" height="480">
+				<param name="movie" value="bin/Cave.swf" />
+				<a href="http://www.adobe.com/go/getflash">
+					<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/>
+				</a>
+			</object>
+    </object>
+		</div>
+		
+		<div class="controls">
+			<p>&uarr;&darr;&larr;&rarr;, WASD - Move</p>
+			<p>Ctrl - Tap / hold to fire</p>
+			<p>Ctrl - Hold to dig</p>
+			<p>Ctrl - Tap to open chest</p>
+    </div>
+		
+		<div class="readme">
+			<p>This is just some experimental playing around with Flash / Flixel. Don't worry, there is no ending... just try to score as much as you can before your inevitable demise.</p>
     </div>
     
-    <object width="480" height="480" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
-  	<object type="application/x-shockwave-flash" data="http://github.com/downloads/andypaxo/Cave/Cave_1525e8af1ff32d243c42be42745b66aff46843f0.swf" width="480" height="480">
-			<param name="movie" value="http://github.com/downloads/andypaxo/Cave/Cave_1525e8af1ff32d243c42be42745b66aff46843f0.swf" />
-			<a href="http://www.adobe.com/go/getflash">
-				<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/>
-			</a>
-		</object>
-    </object>
-    
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
-  </body>
+		<div class="footer">
+			<a href="https://github.com/andypaxo/Cave" class="resource-link">&raquo; View On GitHub</a>
+		</div>
+			
+  <div></body>
 </html>
