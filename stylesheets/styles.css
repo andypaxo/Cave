@@ -1,6 +1,6 @@
 body { background: #333; color:white; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; }
 .master-container { width: 600px; margin:0 auto; }
-.game { width: 480px; margin: 20px 0 0 60px; }
+.game { margin: 10px 0 0 60px; overflow:hidden; border:none; }
 .controls, .readme { width: 280px; margin:0 10px; float:left; }
 .footer { clear:left; }
 .resource-link { display: block; width: 10em; background:brown; border-radius: 3px; color:white; text-decoration: none; padding: 5px; 3px; }
