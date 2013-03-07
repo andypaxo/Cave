@@ -19,7 +19,7 @@ package
 		
 		public static function createCooldown(callback:Function, thisArg:Object, length:Number):Cooldown
 		{
-			var result = new Cooldown(callback, thisArg, length);
+			var result:Cooldown = new Cooldown(callback, thisArg, length);
 			cooldowns.push(result);
 			return result;
 		}
@@ -34,7 +34,7 @@ package
 			PlayState(FlxG.state).addFloorDecal(new Mess(victim.x, victim.y));
 		}
 		
-		public static function addScore(location:FlxPoint, score:int)
+		public static function addScore(location:FlxPoint, score:int):void
 		{
 			FlxG.score += score;
 			PlayState(FlxG.state).sfx.add(new ScoreWidget(location, score));
