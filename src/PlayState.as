@@ -120,8 +120,8 @@ package
 			for each (var mob:Mob in mobs)
 				if (mob.velocity.x != 0 || mob.velocity.y != 0)
 					movingMobs.add(mob);
-			FlxG.collide(tilemap, movingMobs);
-			FlxG.collide(movingMobs);
+			FlxG.collide(tilemap, mobs);
+			FlxG.collide(mobs, mobs);
 			
 			
 			if (greatBallsOfFire.length)
