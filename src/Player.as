@@ -49,6 +49,9 @@ package
 			
 			fireCooldown = Global.createCooldown(doFire, this, 0.5);
 			fire = fireCooldown.execute;
+
+			if (FlxG.mouse.pressed())
+				fire.execute();
 		}
 		
 		public function createFX():void
@@ -129,8 +132,6 @@ package
 					openChestAt(pointToTryDigging);
 					fireCooldown.reset();
 					break;
-				default:
-					fire();
 			}
 		}
 		
