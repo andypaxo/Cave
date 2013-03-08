@@ -15,7 +15,7 @@ package
 		private const roomFrequency:Number = 0.4;
 		private const roomSize:Number = 9;
 		private const roomSpacing:Number = 4;
-		private const widthInRooms:Number = 13;
+		private const widthInRooms:Number = 7;
 		
 		private const mapWidth:int = (roomSize + roomSpacing) * widthInRooms + roomSpacing;
 		private const mapHeight:int = mapWidth;

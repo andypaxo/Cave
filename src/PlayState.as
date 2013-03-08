@@ -115,14 +115,9 @@ package
 			Global.update();
 			
 			FlxG.collide(tilemap, Global.player);
-			
-			var movingMobs:FlxGroup = new FlxGroup();
-			for each (var mob:Mob in mobs)
-				if (mob.velocity.x != 0 || mob.velocity.y != 0)
-					movingMobs.add(mob);
+
 			FlxG.collide(tilemap, mobs);
 			FlxG.collide(mobs, mobs);
-			
 			
 			if (greatBallsOfFire.length)
 				FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
