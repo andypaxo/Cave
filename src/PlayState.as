@@ -65,7 +65,6 @@ package
 			sfx = new FlxGroup();
 			add(sfx);
 			
-			FlxG.mouse.hide();
 			FlxG.playMusic(ambientSound);
 		}
 		

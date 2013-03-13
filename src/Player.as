@@ -49,9 +49,6 @@ package
 			
 			fireCooldown = Global.createCooldown(doFire, this, 0.5);
 			fire = fireCooldown.execute;
-
-			if (FlxG.mouse.pressed())
-				fire.execute();
 		}
 		
 		public function createFX():void
@@ -63,6 +60,9 @@ package
 		{
 			super.update();
 			
+			if (FlxG.mouse.pressed())
+				fire();
+
 			if (lockedOut())
 			{
 				controlLockout -= FlxG.elapsed;
@@ -182,8 +182,7 @@ package
 		private function doFire():void
 		{
 			var pointInFront:FlxPoint = Util.subtract(getPointInFront(), new FlxPoint(width / 2, height / 2));
-			var fireball:FlxSprite = new Owie(pointInFront.x, pointInFront.y);
-			fireball.velocity = Util.scalePoint(facingToPoint(), 150);
+			var fireball:FlxSprite = new Owie().from(getMidpoint()).to(FlxG.mouse);
 			playStage.addPlayerFire(fireball);
 		}
 		

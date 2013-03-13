@@ -21,9 +21,17 @@ package
 			if (point.x == 0 && point.y == 0)
 				return point;
 				
-			var magnitude:Number = FlxU.getDistance(new FlxPoint(), point);
-			return new FlxPoint(scale * point.x / magnitude, scale * point.y / magnitude);
+			var magnitude:Number = length(point);
+        	return multiply(point, scale/magnitude);
 		}
+
+        public static function multiply(v:FlxPoint, amt:Number):FlxPoint {
+        	return new FlxPoint(v.x*amt, v.y*amt);
+        }
+
+    	public static function length(v:FlxPoint):Number {
+        	return Math.sqrt(v.x*v.x+v.y*v.y);
+        }
 		
 		public static function randomItemFrom(items:Array):Object {
 			return items[Math.floor(Math.random() * items.length)];

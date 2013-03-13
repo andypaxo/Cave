@@ -9,7 +9,7 @@ package
 		
 		private var end:Cooldown;
 		
-		public function Owie(x:Number, y:Number) 
+		public function Owie(x:Number = 0, y:Number = 0) 
 		{
 			super(x, y);
 			loadGraphic(sprite, true);
@@ -18,6 +18,17 @@ package
 			end = Global.createCooldown(kill, this, 0.5);
 			end.reset();
 		}
+
+        public function from(start:FlxPoint):Owie {
+        	x = start.x - width/2;
+        	y = start.y - height/2;
+        	return this;
+        }
+
+        public function to(dest:FlxPoint):Owie {
+            velocity = Util.normalize(Util.subtract(dest, getMidpoint()), 150);
+        	return this;
+        }
 		
 		override public function update():void 
 		{
