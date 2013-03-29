@@ -9,7 +9,7 @@ package
 		public static const gemTile:int = 2;
 		public static const wallTile:int = 3;
 		
-		public static const tileSize:int = 10;
+		public static const tileSize:int = 12;
 		public static var player:Player;
 		public static var world:World;
 		
