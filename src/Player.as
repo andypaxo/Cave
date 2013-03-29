@@ -128,10 +128,6 @@ package
 				case Global.wallTile:
 					dig();
 					break;
-				case Global.chestClosedTile:
-					openChestAt(pointToTryDigging);
-					fireCooldown.reset();
-					break;
 			}
 		}
 		

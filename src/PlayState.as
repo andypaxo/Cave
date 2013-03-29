@@ -1,6 +1,5 @@
 package
 {
-
 	import org.flixel.*;
 
 	public class PlayState extends FlxState implements PlayStage
@@ -15,6 +14,7 @@ package
 		
 		private var tilemap:FlxTilemap;
 		private var floorDecals:FlxGroup;
+		private var terrainItems:FlxGroup;
 		private var mobs:FlxGroup;
 		private var greatBallsOfFire:FlxGroup;
 		public var sfx:FlxGroup;
@@ -24,7 +24,8 @@ package
 	
 		override public function create():void
 		{
-			var world:World = new World();
+			terrainItems = new FlxGroup();
+			var world:World = new World(terrainItems);
 			tilemap = world.getTilemap();
 			Global.player = new Player(this);
 			
@@ -41,6 +42,7 @@ package
 			FlxG.camera.follow(Global.player, FlxCamera.STYLE_TOPDOWN_TIGHT);
 			
 			add(tilemap);
+			add(terrainItems);
 			floorDecals = new FlxGroup();
 			add(floorDecals);
 			
@@ -120,6 +122,8 @@ package
 			
 			if (greatBallsOfFire.length)
 				FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
+
+			FlxG.overlap(terrainItems, Global.player, playerTouchedItem);
 			
 			for each (var fireball:FlxBasic in greatBallsOfFire.members)
 				if (!fireball.alive)
@@ -135,18 +139,17 @@ package
 			if (mob.health <= 0)
 				mobs.remove(mob, true);
 		}
+
+		private function playerTouchedItem(item:FlxSprite, player:Player):void
+		{
+			if ('touchedPlayer' in item)
+				item['touchedPlayer'](player);
+		}
 		
 		public function digAt(point:FlxPoint):void
 		{
 			var pos:FlxPoint = Util.scalePoint(point, 1 / Global.tileSize);
 			var tileType:uint = tilemap.getTile(pos.x, pos.y);
-			
-			if (tileType == Global.chestClosedTile)
-			{
-				Global.addScore(point, 400);
-				tilemap.setTile(pos.x, pos.y, Global.chestOpenTile);
-				return;
-			}
 			
 			if (tileType == Global.gemTile)
 				Global.addScore(point, 100);

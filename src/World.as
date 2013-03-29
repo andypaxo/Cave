@@ -12,7 +12,7 @@ package
 		private const maxPlacedItems:int = 100;
 		private const placeableBorder:int = 2;
 		
-		private const roomFrequency:Number = 0.4;
+		private const roomFrequency:Number = 0.6;
 		private const roomSize:Number = 9;
 		private const roomSpacing:Number = 4;
 		private const widthInRooms:Number = 7;
@@ -24,9 +24,11 @@ package
 		public var tileSize:int;
 		
 		private var tilemap:FlxTilemap;
+		private var itemsGroup:FlxGroup;
 		
-		public function World() 
+		public function World(itemGroup:FlxGroup) 
 		{
+			this.itemsGroup = itemGroup;
 			var noiseBitmap:BitmapData = makeSomeNoise();
 			tilemap = makeTilemapFrom(noiseBitmap);
 			tileSize = tilemap.width / tilemap.widthInTiles;
@@ -111,8 +113,15 @@ package
 								? Global.wallTile
 								: Global.floorTile);
 			
-			if (Math.random() > 0.6)
-				map.setTile(x + 4, y + 4, Global.chestClosedTile);
+			if (Math.random() < 0.4)
+				placeChestAt(new FlxPoint(x + 4, y + 4));
+		}
+
+		private function placeChestAt(location:FlxPoint):void
+		{
+			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
+			var chest:Chest = new Chest(pixelLocation);
+			itemsGroup.add(chest);
 		}
 		
 		public function makeMobs():FlxGroup
