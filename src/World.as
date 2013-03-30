@@ -57,6 +57,7 @@ package
 			var result:FlxTilemap = new FlxTilemap();
 			result.loadMap(mapData, terrainSprite, 0, 0, FlxTilemap.OFF, 0, 0);
 			addRoomsTo(result);
+			makeRocksPretty(result);
 			return result;
 		}
 		
@@ -141,7 +142,7 @@ package
 				if (tilemap.getTile(tileLocation.x, tileLocation.y) == 0)
 					addMob(tileLocation, result);
 				else
-					tilemap.setTile(tileLocation.x, tileLocation.y, 2);
+					tilemap.setTile(tileLocation.x, tileLocation.y, Global.gemTile);
 			}
 			
 			return result;
@@ -151,6 +152,17 @@ package
 			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
 			if (FlxU.getDistance(pixelLocation, Global.player.getMidpoint()) > 16 * tileSize)
 				group.add(new Mob(pixelLocation));
+		}
+
+		private function makeRocksPretty(tilemap:FlxTilemap):void {
+			for (var cx:int = 0; cx < mapWidth; cx ++)
+				for (var cy:int = 0; cy < mapHeight - 1; cy ++)
+				{
+					if (tilemap.getTile(cx, cy) == Global.rockTile && tilemap.getTile(cx, cy + 1) == Global.floorTile)
+						tilemap.setTile(cx, cy, Global.rockTile2);
+					if (tilemap.getTile(cx, cy) == Global.wallTile && tilemap.getTile(cx, cy + 1) == Global.floorTile)
+						tilemap.setTile(cx, cy, Global.wallTile2);
+				}
 		}
 		
 		private function indexToLocation(index:int):FlxPoint

@@ -168,10 +168,6 @@ package
 			}
 		}
 		
-		private function openChestAt(point:FlxPoint):void {
-			playStage.digAt(point);
-		}
-		
 		private function doFire():void
 		{
 			var pointInFront:FlxPoint = Util.subtract(getPointInFront(), new FlxPoint(width / 2, height / 2));

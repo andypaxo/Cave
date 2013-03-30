@@ -92,7 +92,7 @@ package
 				FlxG.camera.scroll.y / Global.world.tileSize - 2,
 				FlxG.camera.width / Global.world.tileSize + 4,
 				FlxG.camera.height / Global.world.tileSize + 4);
-			for each (var x:uint in tilemap.getTileInstances(2))
+			for each (var x:uint in tilemap.getTileInstances(Global.gemTile))
 			{
 				var tilePosition:FlxPoint = new FlxPoint(x % tilemap.widthInTiles, Math.floor(x / tilemap.widthInTiles));
 				if (Util.contains(tilemapBounds, tilePosition))

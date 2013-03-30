@@ -6,8 +6,10 @@ package
 	{
 		public static const floorTile:int = 0;
 		public static const rockTile:int = 1;
-		public static const gemTile:int = 2;
+		public static const rockTile2:int = 2;
 		public static const wallTile:int = 3;
+		public static const wallTile2:int = 4;
+		public static const gemTile:int = 5;
 		
 		public static const tileSize:int = 12;
 		public static var player:Player;
