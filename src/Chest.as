@@ -7,6 +7,9 @@ package
 		[Embed(source = 'data/terrain.png')]
 		private var terrainSprite:Class;
 
+		[Embed(source = 'data/chest.mp3')]
+		private var chestSound:Class;
+		
 		private var open:Boolean = false;
 
 		public function Chest (location:FlxPoint)
@@ -22,7 +25,8 @@ package
 			{
 				open = true;
 				frame = 5;
-				Global.addScore(new FlxPoint(x, y), 200 + Math.floor(Math.random() * 6) * 50)
+				Global.addScore(new FlxPoint(x, y), 200 + Math.floor(Math.random() * 6) * 50);
+				FlxG.play(chestSound, 0.3);
 			}
 		}
 	}

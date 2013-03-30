@@ -18,8 +18,6 @@ package
 		private var hurtSound:Class;
 		[Embed(source = 'data/dig.mp3')]
 		private var digSound:Class;
-		[Embed(source = 'data/chest.mp3')]
-		private var chestSound:Class;
 		
 		private const walkingSpeed:Number = 60;
 		public static const maxHealth:Number = 8;
@@ -172,7 +170,6 @@ package
 		
 		private function openChestAt(point:FlxPoint):void {
 			playStage.digAt(point);
-			FlxG.play(chestSound, 0.3);
 		}
 		
 		private function doFire():void
