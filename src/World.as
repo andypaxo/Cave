@@ -19,7 +19,8 @@ package
 		
 		private const mapWidth:int = (roomSize + roomSpacing) * widthInRooms + roomSpacing;
 		private const mapHeight:int = mapWidth;
-		
+
+		private const enemyTypes:Array = [Goblin, Goblin, Mage];		
 		
 		public var tileSize:int;
 		
@@ -151,7 +152,7 @@ package
 		private function addMob(location:FlxPoint, group:FlxGroup):void {
 			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
 			if (FlxU.getDistance(pixelLocation, Global.player.getMidpoint()) > 16 * tileSize)
-				group.add(new Mob(pixelLocation));
+				group.add(new (Util.randomItemFrom(enemyTypes))(pixelLocation));
 		}
 
 		private function makeRocksPretty(tilemap:FlxTilemap):void {

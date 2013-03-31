@@ -3,10 +3,7 @@ package
 	import org.flixel.*;
 	
 	public class Mob extends FlxSprite 
-	{
-		[Embed(source = 'data/goblin.png')]
-		private var sprite:Class;
-		
+	{	
 		[Embed(source = 'data/mob-hurt.mp3')]
 		private var hurtSound:Class;
 		[Embed(source = 'data/mob-alert-1.mp3')]
@@ -19,7 +16,7 @@ package
 		
 		private const startSeekDistance:Number = 10 * Global.tileSize;
 		private const endSeekDistance:Number = 20 * Global.tileSize;
-		private const attackDistance:Number = 1.1 * Global.tileSize;
+		protected var attackDistance:Number = 1.1 * Global.tileSize;
 		private const walkingSpeed:Number = 70;
 		private const attackStrength:Number = 1;
 		
@@ -31,16 +28,21 @@ package
 		private var seekPlayer:Function;
 		private var attackPlayer:Function;
 		
-		public function Mob(location:FlxPoint) 
+		public function Mob(location:FlxPoint,graphic:Class=null) 
 		{
 			super(location.x, location.y);
-			loadGraphic(sprite, true, true);
+			loadGraphic(graphic, true, true);
+			setup();
+		}
+
+		protected function setup():void
+		{
 			seekPlayer = Global.createCooldown(doSeekPlayer, this, 1).execute;
 			attackPlayer = Global.createCooldown(doAttackPlayer, this, 2).execute;
 			
-			frame = Math.floor(Math.random() * frames);
+			frame = Math.floor(Math.random() * (frames + 1));
 			level = frame;
-			health = Math.floor(1 + level);
+			health = 1 + level;
 			sounds = [alertSound1, alertSound2, alertSound3];
 		}
 		
@@ -62,9 +64,7 @@ package
 		
 		private function moveAndAttack():void 
 		{
-			var location:FlxPoint = getMidpoint();
-			var playerLocation:FlxPoint = Global.player.getMidpoint();
-			var distanceToPlayer:Number = FlxU.getDistance(location, playerLocation);
+			var distanceToPlayer:Number = getDistanceFromPlayer();
 			
 			var wasSeeking:Boolean = isSeeking;
 			isSeeking =
@@ -83,10 +83,22 @@ package
 			if (distanceToPlayer < attackDistance)
 				attackPlayer();
 			
-			if (pathSpeed == 0)
+			if (shouldStop())
 				stop();
 			else
 				facing = velocity.x > 0 ? RIGHT : LEFT;
+		}
+
+		protected function getDistanceFromPlayer():Number
+		{
+			var location:FlxPoint = getMidpoint();
+			var playerLocation:FlxPoint = Global.player.getMidpoint();
+			return FlxU.getDistance(location, playerLocation)
+		}
+
+		protected function shouldStop():Boolean
+		{
+			return pathSpeed == 0;
 		}
 		
 		private function doSeekPlayer():void 
@@ -101,7 +113,7 @@ package
 				followPath(path, walkingSpeed);
 		}
 		
-		private function doAttackPlayer():void
+		protected function doAttackPlayer():void
 		{
 			if (Global.player.isDead())
 				return;

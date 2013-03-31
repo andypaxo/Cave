@@ -9,13 +9,13 @@ package
 		
 		private var end:Cooldown;
 		
-		public function Owie(x:Number = 0, y:Number = 0) 
+		public function Owie(x:Number = 0, y:Number = 0, graphic:Class = null, lifetime:Number = 0.5) 
 		{
 			super(x, y);
-			loadGraphic(sprite, true);
+			loadGraphic(graphic || sprite, true);
 			addAnimation('default', [0, 1, 2, 3], 30);
 			play('default');
-			end = Global.createCooldown(kill, this, 0.5);
+			end = Global.createCooldown(kill, this, lifetime);
 			end.reset();
 		}
 
@@ -25,8 +25,8 @@ package
         	return this;
         }
 
-        public function to(dest:FlxPoint):Owie {
-            velocity = Util.normalize(Util.subtract(dest, getMidpoint()), 150);
+        public function to(dest:FlxPoint, speed:Number = 150):Owie {
+            velocity = Util.normalize(Util.subtract(dest, getMidpoint()), speed);
         	return this;
         }
 		

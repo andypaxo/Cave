@@ -14,6 +14,10 @@ package
 		public static const tileSize:int = 12;
 		public static var player:Player;
 		public static var world:World;
+		public static function get playStage():PlayStage
+		{
+			return PlayStage(FlxG.state);
+		}
 		
 		private static var cooldowns:Vector.<Cooldown> = new Vector.<Cooldown>();
 		

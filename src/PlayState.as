@@ -11,24 +11,28 @@ package
 		private var lampSprite:Class;
 		[Embed(source = 'data/fireball.png')]
 		private var fireballSprite:Class;
+		[Embed(source = 'data/iceball.png')]
+		private var iceballSprite:Class;
 		
 		private var tilemap:FlxTilemap;
 		private var floorDecals:FlxGroup;
 		private var terrainItems:FlxGroup;
 		private var mobs:FlxGroup;
 		private var greatBallsOfFire:FlxGroup;
+		private var unfriendlyFire:FlxGroup;
 		public var sfx:FlxGroup;
 		
 		private var darkness:FlxSprite;
 		private var fire:FlxSprite;
+		private var ice:FlxSprite;
 	
 		override public function create():void
 		{
 			terrainItems = new FlxGroup();
 			var world:World = new World(terrainItems);
 			tilemap = world.getTilemap();
-			Global.player = new Player(this);
-			
+
+			Global.player = new Player();
 			Global.world = world;
 			
 			var worldBounds:FlxRect = tilemap.getBounds();
@@ -58,12 +62,15 @@ package
 			darkness.blend = "multiply";
 			add(darkness);
 			fire = new FlxSprite(0, 0, fireballSprite);
+			ice = new FlxSprite(0, 0, iceballSprite);
 			
 			add(new HealthBar());
 			add(new ScoreBar());
 			
 			greatBallsOfFire = new FlxGroup();
 			add(greatBallsOfFire);
+			unfriendlyFire = new FlxGroup();
+			add(unfriendlyFire);
 			sfx = new FlxGroup();
 			add(sfx);
 			
@@ -79,35 +86,43 @@ package
 				new FlxPoint(Global.player.width / 2, Global.player.height / 2));
 			darkness.stamp(lamp, lampOffset.x - lamp.width / 2, lampOffset.y - lamp.height / 2);
 			
-			for each (var fireball:FlxSprite in greatBallsOfFire.members)
-			{
-				var fireOffset:FlxPoint = Util.addPoints(
-					fireball.getScreenXY(),
-					new FlxPoint(fireball.width / 2, fireball.height / 2));
-				darkness.stamp(fire, fireOffset.x - fire.width / 2, fireOffset.y - fire.height / 2);
-			}
+			drawLights(greatBallsOfFire, fire);
+			drawLights(unfriendlyFire, ice);
 			
 			var tilemapBounds:FlxRect = new FlxRect(
 				FlxG.camera.scroll.x / Global.world.tileSize - 2,
 				FlxG.camera.scroll.y / Global.world.tileSize - 2,
 				FlxG.camera.width / Global.world.tileSize + 4,
 				FlxG.camera.height / Global.world.tileSize + 4);
+
+			var lightOffset:FlxPoint;
 			for each (var x:uint in tilemap.getTileInstances(Global.gemTile))
 			{
 				var tilePosition:FlxPoint = new FlxPoint(x % tilemap.widthInTiles, Math.floor(x / tilemap.widthInTiles));
 				if (Util.contains(tilemapBounds, tilePosition))
 				{
-					fireOffset = Util.addPoints(
+					lightOffset = Util.addPoints(
 						Util.scalePoint(tilePosition, Global.world.tileSize),
 						Util.scalePoint(FlxG.camera.scroll, -1));
-					fireOffset = Util.addPoints(fireOffset, new FlxPoint(5, 5));
+					lightOffset = Util.addPoints(lightOffset, new FlxPoint(5, 5));
 					var fireSize:Number = fire.width;
 					
-					darkness.stamp(fire, fireOffset.x - fire.width / 2, fireOffset.y - fire.height / 2);
+					darkness.stamp(fire, lightOffset.x - fire.width / 2, lightOffset.y - fire.height / 2);
 				}
 			}
 			
 			super.draw();
+		}
+
+		private function drawLights(group:FlxGroup, sprite:FlxSprite):void
+		{
+			for each (var lightSource:FlxSprite in group.members)
+			{
+				var lightOffset:FlxPoint = Util.addPoints(
+					lightSource.getScreenXY(),
+					new FlxPoint(lightSource.width / 2, lightSource.height / 2));
+				darkness.stamp(sprite, lightOffset.x - sprite.width / 2, lightOffset.y - sprite.height / 2);
+			}
 		}
 		
 		override public function update():void
@@ -122,12 +137,13 @@ package
 			
 			if (greatBallsOfFire.length)
 				FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
+			if (unfriendlyFire.length)
+				FlxG.overlap(Global.player, unfriendlyFire, fireHitPlayer);
 
 			FlxG.overlap(terrainItems, Global.player, playerTouchedItem);
 			
-			for each (var fireball:FlxBasic in greatBallsOfFire.members)
-				if (!fireball.alive)
-					greatBallsOfFire.remove(fireball, true);
+			cullGroup(greatBallsOfFire);
+			cullGroup(unfriendlyFire);
 		}
 		
 		private function fireHitMob(mob:Mob, fire:FlxSprite):void
@@ -138,6 +154,20 @@ package
 			
 			if (mob.health <= 0)
 				mobs.remove(mob, true);
+		}
+		
+		private function fireHitPlayer(player:Player, fire:FlxSprite):void
+		{
+			player.hurt(1);
+			player.knockBack(fire.getMidpoint());
+			fire.kill();
+		}
+
+		private function cullGroup(group:FlxGroup):void
+		{
+			for each (var fireball:FlxBasic in group.members)
+				if (!fireball.alive)
+					group.remove(fireball, true);
 		}
 
 		private function playerTouchedItem(item:FlxSprite, player:Player):void
@@ -165,6 +195,11 @@ package
 		public function addPlayerFire(fireball:FlxSprite):void
 		{
 			greatBallsOfFire.add(fireball);
+		}
+		
+		public function addMobFire(fireball:FlxSprite):void
+		{
+			unfriendlyFire.add(fireball);
 		}
 		
 		public function addFloorDecal(decal:FlxSprite):void

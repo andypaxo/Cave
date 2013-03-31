@@ -28,12 +28,10 @@ package
 		private var rockEmitter:FlxEmitter = new FlxEmitter(0, 0, 5);
 		private var controlLockout:Number = 0;
 		
-		private var playStage:PlayStage;
-		
 		public var fire:Function;
 		public var fireCooldown:Cooldown;
 		
-		public function Player(playStage:PlayStage) 
+		public function Player() 
 		{
 			loadGraphic(sprite, true);
 			
@@ -43,7 +41,6 @@ package
 			rockEmitter.gravity = 80;
 			
 			health = maxHealth;
-			this.playStage = playStage;
 			
 			fireCooldown = Global.createCooldown(doFire, this, 0.5);
 			fire = fireCooldown.execute;
@@ -119,7 +116,7 @@ package
 		private function digOrFire():void
 		{
 			var pointToTryDigging:FlxPoint = getPointInFront();
-			var tileType:uint = playStage.rockAt(pointToTryDigging);
+			var tileType:uint = Global.playStage.rockAt(pointToTryDigging);
 			switch (tileType) {
 				case Global.rockTile:
 				case Global.gemTile:
@@ -162,7 +159,7 @@ package
 			diggingTimeRemaining -= FlxG.elapsed;
 			if (diggingTimeRemaining <= 0)
 			{
-				playStage.digAt(diggingSpot);
+				Global.playStage.digAt(diggingSpot);
 				stopDig();
 				fireCooldown.reset();
 			}
@@ -170,9 +167,8 @@ package
 		
 		private function doFire():void
 		{
-			var pointInFront:FlxPoint = Util.subtract(getPointInFront(), new FlxPoint(width / 2, height / 2));
 			var fireball:FlxSprite = new Owie().from(getMidpoint()).to(FlxG.mouse);
-			playStage.addPlayerFire(fireball);
+			Global.playStage.addPlayerFire(fireball);
 		}
 		
 		private function updateGraphic():void
