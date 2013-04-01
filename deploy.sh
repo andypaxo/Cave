@@ -11,7 +11,7 @@ if [ $? -eq 0 ]
 	pushd ../cave-doc
 
 	# Cachebuster
-	sed s/{cb}/`date +%s`/ gameframe-tmpl.html > gameframe.html
+	sed s/{cachebuster}/`date +%s`/ gameframe-tmpl.html > gameframe.html
 
 	# Publish
 	git commit -am "New version"
