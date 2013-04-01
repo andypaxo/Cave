@@ -59,6 +59,7 @@ package
 			result.loadMap(mapData, terrainSprite, 0, 0, FlxTilemap.OFF, 0, 0);
 			addRoomsTo(result);
 			makeRocksPretty(result);
+			addImpassableBorderTo(result);
 			return result;
 		}
 		
@@ -164,6 +165,20 @@ package
 					if (tilemap.getTile(cx, cy) == Global.wallTile && tilemap.getTile(cx, cy + 1) == Global.floorTile)
 						tilemap.setTile(cx, cy, Global.wallTile2);
 				}
+		}
+
+		private function addImpassableBorderTo(tilemap:FlxTilemap):void {
+			for (var cx:int = 0; cx < mapWidth; cx ++)
+			{
+				tilemap.setTile(cx, 0, Global.graniteTile);
+				tilemap.setTile(cx, mapHeight - 1, Global.graniteTile);
+			}
+
+			for (var cy:int = 0; cy < mapHeight; cy ++)
+			{
+				tilemap.setTile(0, cy, Global.graniteTile);
+				tilemap.setTile(mapWidth - 1, cy, Global.graniteTile);
+			}
 		}
 		
 		private function indexToLocation(index:int):FlxPoint

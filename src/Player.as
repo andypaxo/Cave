@@ -119,8 +119,10 @@ package
 			var tileType:uint = Global.playStage.rockAt(pointToTryDigging);
 			switch (tileType) {
 				case Global.rockTile:
+				case Global.rockTile2:
 				case Global.gemTile:
 				case Global.wallTile:
+				case Global.wallTile2:
 					dig();
 					break;
 			}

@@ -10,6 +10,7 @@ package
 		public static const wallTile:int = 3;
 		public static const wallTile2:int = 4;
 		public static const gemTile:int = 5;
+		public static const graniteTile:int = 6;
 		
 		public static const tileSize:int = 12;
 		public static var player:Player;
