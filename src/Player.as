@@ -169,8 +169,16 @@ package
 		
 		private function doFire():void
 		{
-			var fireball:FlxSprite = new Owie().from(getMidpoint()).to(FlxG.mouse);
-			Global.playStage.addPlayerFire(fireball);
+			//var fireball:FlxSprite = new Owie().from(getMidpoint()).to(FlxG.mouse);
+			//Global.playStage.addPlayerFire(fireball);
+			var location:FlxPoint = Util.addPoints(
+				getMidpoint(),
+				Util.normalize(Util.subtract(FlxG.mouse, getMidpoint()), width * 1.5));
+			var slash:Owie = new Owie().from(location);
+			// Seems that angle is just for appearance and doesn't affect collision
+			//slash.origin = new FlxPoint(width / 2, 18);
+			//slash.angle = 180;
+			Global.playStage.addPlayerFire(slash);
 		}
 		
 		private function updateGraphic():void

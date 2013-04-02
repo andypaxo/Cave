@@ -16,4 +16,6 @@ if [ $? -eq 0 ]
 	# Publish
 	git commit -am "New version"
 	git push
+
+	popd
 fi
