@@ -40,6 +40,13 @@ package
 		public static function contains(bounds:FlxRect, point:FlxPoint):Boolean {
 			return point.x >= bounds.left && point.x <= bounds.right && point.y >= bounds.top && point.y <= bounds.bottom;
 		}
+
+		public static function angleFromPoint(origin:FlxPoint, facing:FlxPoint):Number
+		{
+			var diff:FlxPoint = subtract(facing, origin);
+			var angleInRadians:Number = Math.atan2(diff.y, diff.x);
+			return angleInRadians * (180 / Math.PI);
+		}
 	}
 
 }

@@ -19,6 +19,9 @@ package
 		[Embed(source = 'data/dig.mp3')]
 		private var digSound:Class;
 		
+		[Embed(source = 'data/slash.png')]
+		private var slashGraphic:Class;
+
 		private const walkingSpeed:Number = 60;
 		public static const maxHealth:Number = 8;
 		
@@ -171,13 +174,17 @@ package
 		{
 			//var fireball:FlxSprite = new Owie().from(getMidpoint()).to(FlxG.mouse);
 			//Global.playStage.addPlayerFire(fireball);
+
 			var location:FlxPoint = Util.addPoints(
 				getMidpoint(),
-				Util.normalize(Util.subtract(FlxG.mouse, getMidpoint()), width * 1.5));
-			var slash:Owie = new Owie().from(location);
-			// Seems that angle is just for appearance and doesn't affect collision
-			//slash.origin = new FlxPoint(width / 2, 18);
-			//slash.angle = 180;
+				Util.normalize(Util.subtract(FlxG.mouse, getMidpoint()), width));
+			
+			var slash:Owie = new Owie(0,0,null,0.2).from(location).follow(this);
+			slash.loadGraphic(slashGraphic, true, false, 10);
+			slash.addAnimation('default', [0, 1, 2, 3, 4, 5], 30);
+			slash.play('default');
+
+			slash.angle = Util.angleFromPoint(getMidpoint(), FlxG.mouse);
 			Global.playStage.addPlayerFire(slash);
 		}
 		
