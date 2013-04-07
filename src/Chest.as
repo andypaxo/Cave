@@ -10,6 +10,9 @@ package
 		[Embed(source = 'data/chest.mp3')]
 		private var chestSound:Class;
 
+		[Embed(source = 'data/heartFull.png')]
+		private var heartSprite:Class;
+
 		private var open:Boolean = false;
 
 		public function Chest (location:FlxPoint)
@@ -25,8 +28,17 @@ package
 			{
 				open = true;
 				frame = 1;
-				Global.addScore(new FlxPoint(x, y), 200 + Math.floor(Math.random() * 6) * 50);
-				FlxG.play(chestSound, 0.3);
+				var happenstance:Number = Math.random() * 3;
+				if (happenstance < 2)
+				{
+					Global.addScore(new FlxPoint(x, y), 200 + Math.floor(Math.random() * 6) * 50);
+					FlxG.play(chestSound, 0.3);
+				}
+				else
+				{
+					player.hurt(-1);
+					Global.addIcon(getMidpoint(), heartSprite);
+				}
 			}
 		}
 	}

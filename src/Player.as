@@ -18,6 +18,9 @@ package
 		private var hurtSound:Class;
 		[Embed(source = 'data/dig.mp3')]
 		private var digSound:Class;
+
+		[Embed(source = 'data/get-heart.mp3')]
+		private var heartSound:Class;
 		
 		[Embed(source = 'data/slash.png')]
 		private var slashGraphic:Class;
@@ -222,12 +225,26 @@ package
 		
 		override public function hurt(Damage:Number):void 
 		{
+			if (Damage > 0)
+				hurtme(Damage);
+			else if (Damage < 0)
+				healme(Damage);
+		}
+
+		private function hurtme(Damage:Number):void
+		{
 			if (!lockedOut())
 			{
 				super.hurt(Damage);
 				FlxG.state.add(new Owie(x, y));
 				FlxG.play(hurtSound, 0.2);
 			}
+		}
+
+		private function healme(Damage:Number):void
+		{
+			super.hurt(Damage);
+			FlxG.play(heartSound, 0.2);
 		}
 		
 		override public function kill():void 

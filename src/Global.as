@@ -45,6 +45,11 @@ package
 			PlayState(FlxG.state).sfx.add(new ScoreWidget(location, score));
 		}
 		
+		public static function addIcon(location:FlxPoint, graphic:Class):void
+		{
+			PlayState(FlxG.state).sfx.add(new FloatySprite(location, graphic));
+		}
+		
 		public static function update():void
 		{
 			for each (var cooldown:Cooldown in cooldowns) {
