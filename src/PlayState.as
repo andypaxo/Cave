@@ -1,6 +1,7 @@
 package
 {
 	import org.flixel.*;
+	import items.*;
 
 	public class PlayState extends FlxState implements PlayStage
 	{		
@@ -40,6 +41,7 @@ package
 			Global.player.y = worldBounds.height / 2;
 			while (tilemap.overlaps(Global.player))
 				Global.player.y += 8;
+			Global.player.give(new RodOfFire());
 			
 			tilemap.follow(FlxG.camera);
 			
