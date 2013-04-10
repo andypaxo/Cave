@@ -7,6 +7,14 @@ package items
 		[Embed(source = '../data/slash.png')]
 		private var slashGraphic:Class;
 
+		[Embed(source = '../data/item-dagger.png')]
+		private var _graphic:Class;
+
+		public function Dagger()
+		{
+			super(_graphic);
+		}
+
 		public override function fireFrom(origin:FlxSprite):void
 		{
 			var midpoint:FlxPoint = origin.getMidpoint();

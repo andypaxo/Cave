@@ -4,6 +4,14 @@ package items
 
 	public class RodOfFire extends Weapon
 	{
+		[Embed(source = '../data/item-fire-wand.png')]
+		private var _graphic:Class;
+
+		public function RodOfFire()
+		{
+			super(_graphic);
+		}
+
 		public override function fireFrom(origin:FlxSprite):void
 		{
 			var slash:FlxSprite = new Owie().from(origin.getMidpoint()).to(FlxG.mouse);

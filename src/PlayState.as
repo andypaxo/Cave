@@ -69,6 +69,7 @@ package
 			
 			add(new HealthBar());
 			add(new ScoreBar());
+			add(new InventorySprite());
 			
 			greatBallsOfFire = new FlxGroup();
 			add(greatBallsOfFire);
