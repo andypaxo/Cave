@@ -41,6 +41,7 @@ package
 			Global.player.y = worldBounds.height / 2;
 			while (tilemap.overlaps(Global.player))
 				Global.player.y += 8;
+			Global.player.give(new Dagger());
 			Global.player.give(new RodOfFire());
 			
 			tilemap.follow(FlxG.camera);

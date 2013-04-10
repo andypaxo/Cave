@@ -35,7 +35,9 @@ package
 		public var fire:Function;
 		public var fireCooldown:Cooldown;
 
-		private var wielded:Weapon;
+		public var inventory:Array = new Array(6);
+		public var wieldedIndex:Number = 0;
+		private function get wielded():Weapon { return inventory[wieldedIndex]; }
 		
 		public function Player() 
 		{
@@ -261,7 +263,13 @@ package
 
 		public function give(weapon:Weapon):void
 		{
-			this.wielded = weapon;
+			var firstFreeSlot:Number = -1;
+
+			for (var i:Number = inventory.length - 1; i >= 0; i--)
+				firstFreeSlot = inventory[i] ? firstFreeSlot : i;
+
+			if (firstFreeSlot >= 0)
+				inventory[firstFreeSlot] = weapon;
 		}
 	}
 
