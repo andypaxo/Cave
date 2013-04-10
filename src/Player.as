@@ -74,10 +74,27 @@ package
 			}
 			else
 			{
+				doInventory();
 				walk();
 				checkAction();
 				updateGraphic();
 			}
+		}
+
+		private function doInventory():void
+		{
+			if (FlxG.keys.ONE)
+				wieldedIndex = 0;
+			if (FlxG.keys.TWO)
+				wieldedIndex = 1;
+			if (FlxG.keys.THREE)
+				wieldedIndex = 2;
+			if (FlxG.keys.FOUR)
+				wieldedIndex = 3;
+			if (FlxG.keys.FIVE)
+				wieldedIndex = 4;
+			if (FlxG.keys.SIX)
+				wieldedIndex = 5;
 		}
 		
 		private function walk():void
@@ -177,7 +194,8 @@ package
 		
 		private function doFire():void
 		{
-			wielded.fireFrom(this);
+			if (wielded)
+				wielded.fireFrom(this);
 		}
 		
 		private function updateGraphic():void
