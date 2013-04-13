@@ -38,7 +38,9 @@ package
 					stamp(weapon.sprite, i * iconSize, 0);
 					var usesRemaining:Number = weapon.uses / weapon.maxUses;
 					if (usesRemaining < 1)
-						pixels.fillRect(new Rectangle(i * iconSize, 12, usesRemaining * iconSize, 2), 0xffffffff);
+						pixels.fillRect(
+							new Rectangle(i * iconSize + 1, 12, usesRemaining * (iconSize - 2), 2),
+							0xff00ff00);
 				}
 			}
 		}

@@ -83,6 +83,15 @@ package
 
 		private function doInventory():void
 		{
+			// Remove items from inventory if spent
+			// Remove from wielded if spent weapon is wielded right now
+			for (var i:Number in inventory)
+			{
+				var weapon:Weapon = inventory[i];
+				if (weapon && weapon.uses == 0)
+					inventory[i] = null;
+			}
+
 			if (FlxG.keys.ONE)
 				wieldedIndex = 0;
 			if (FlxG.keys.TWO)
