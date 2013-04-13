@@ -251,6 +251,7 @@ package
 		private function healme(Damage:Number):void
 		{
 			super.hurt(Damage);
+			health = Math.min(health, maxHealth);
 			FlxG.play(heartSound, 0.2);
 		}
 		
