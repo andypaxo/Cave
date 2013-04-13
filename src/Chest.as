@@ -1,6 +1,7 @@
 package
 {
 	import org.flixel.*;
+	import items.*;
 
 	public class Chest extends FlxSprite
 	{
@@ -28,16 +29,20 @@ package
 			{
 				open = true;
 				frame = 1;
-				var happenstance:Number = Math.random() * 3;
+				var happenstance:Number = Math.random() * 4;
 				if (happenstance < 2)
 				{
 					Global.addScore(new FlxPoint(x, y), 200 + Math.floor(Math.random() * 6) * 50);
 					FlxG.play(chestSound, 0.3);
 				}
-				else
+				else if (happenstance < 3)
 				{
 					player.hurt(-1);
 					Global.addIcon(getMidpoint(), heartSprite);
+				}
+				else
+				{
+					player.give(new RodOfFire());
 				}
 			}
 		}
