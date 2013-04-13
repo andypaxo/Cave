@@ -2,6 +2,7 @@ package
 {
 	import org.flixel.*;
 	import items.*;
+	import flash.geom.Rectangle;
 
 	public class InventorySprite extends FlxSprite
 	{
@@ -32,7 +33,13 @@ package
 			{
 				stamp(i == player.wieldedIndex ? selected : slot, i * iconSize, 0);
 				if (inventory[i])
-					stamp(Weapon(inventory[i]).sprite, i * iconSize, 0);
+				{
+					var weapon:Weapon = Weapon(inventory[i]);
+					stamp(weapon.sprite, i * iconSize, 0);
+					var usesRemaining:Number = weapon.uses / weapon.maxUses;
+					if (usesRemaining < 1)
+						pixels.fillRect(new Rectangle(i * iconSize, 12, usesRemaining * iconSize, 2), 0xffffffff);
+				}
 			}
 		}
 	}

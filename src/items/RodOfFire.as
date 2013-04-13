@@ -10,6 +10,7 @@ package items
 		public function RodOfFire()
 		{
 			super(_graphic);
+			maxUses = uses = 8;
 		}
 
 		public override function fireFrom(origin:FlxSprite):void
@@ -21,6 +22,7 @@ package items
 			// precise setup and will go away of its own accord.
 			var this_line_is_super_important_do_not_remove:Number = slash.width;
 			Global.playStage.addPlayerFire(slash);
+			uses--;
 		}
 	}
 }
