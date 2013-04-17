@@ -2,6 +2,7 @@ package
 {
 	import org.flixel.*;
 	import items.*;
+	import maps.*;
 
 	public class PlayState extends FlxState implements PlayStage
 	{		
@@ -30,7 +31,7 @@ package
 		override public function create():void
 		{
 			terrainItems = new FlxGroup();
-			var world:World = new World(terrainItems);
+			var world:MapMaker = new CaveRooms(terrainItems);
 			tilemap = world.getTilemap();
 
 			Global.player = new Player();

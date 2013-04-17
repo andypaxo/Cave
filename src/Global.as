@@ -1,6 +1,7 @@
 package  
 {
 	import org.flixel.*;
+	import maps.*;
 	
 	public class Global 
 	{
@@ -14,7 +15,7 @@ package
 		
 		public static const tileSize:int = 12;
 		public static var player:Player;
-		public static var world:World;
+		public static var world:MapMaker;
 		public static function get playStage():PlayStage
 		{
 			return PlayStage(FlxG.state);

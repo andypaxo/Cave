@@ -1,14 +1,11 @@
-package  
+package maps
 {
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import org.flixel.*;
 	
-	public class World 
-	{
-		[Embed(source = 'data/terrain.png')]
-		private var terrainSprite:Class;
-		
+	public class CaveRooms extends MapMaker 
+	{	
 		private const maxPlacedItems:int = 100;
 		private const placeableBorder:int = 2;
 		
@@ -19,24 +16,14 @@ package
 		
 		private const mapWidth:int = (roomSize + roomSpacing) * widthInRooms + roomSpacing;
 		private const mapHeight:int = mapWidth;
-
-		private const enemyTypes:Array = [Goblin, Goblin, Mage];		
 		
-		public var tileSize:int;
-		
-		private var tilemap:FlxTilemap;
-		private var itemsGroup:FlxGroup;
-		
-		public function World(itemGroup:FlxGroup) 
+		public function CaveRooms(itemGroup:FlxGroup) 
 		{
+			super(itemGroup);
 			this.itemsGroup = itemGroup;
 			var noiseBitmap:BitmapData = makeSomeNoise();
 			tilemap = makeTilemapFrom(noiseBitmap);
 			tileSize = tilemap.width / tilemap.widthInTiles;
-		}
-		
-		public function getTilemap():FlxTilemap {
-			return tilemap;
 		}
 		
 		private function makeSomeNoise():BitmapData
@@ -127,7 +114,7 @@ package
 			itemsGroup.add(chest);
 		}
 		
-		public function makeMobs():FlxGroup
+		public override function makeMobs():FlxGroup
 		{
 			var result:FlxGroup = new FlxGroup(maxPlacedItems);
 			
