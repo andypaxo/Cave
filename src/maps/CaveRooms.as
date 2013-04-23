@@ -20,7 +20,6 @@ package maps
 		public function CaveRooms(itemGroup:FlxGroup) 
 		{
 			super(itemGroup);
-			this.itemsGroup = itemGroup;
 			var noiseBitmap:BitmapData = makeSomeNoise();
 			tilemap = makeTilemapFrom(noiseBitmap);
 			tileSize = tilemap.width / tilemap.widthInTiles;

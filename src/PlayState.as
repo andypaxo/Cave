@@ -31,7 +31,7 @@ package
 		override public function create():void
 		{
 			terrainItems = new FlxGroup();
-			var world:MapMaker = new CaveRooms(terrainItems);
+			var world:MapMaker = new Catacombs(terrainItems);
 			tilemap = world.getTilemap();
 
 			Global.player = new Player();
