@@ -5,21 +5,19 @@ package maps
 	import org.flixel.*;
 	
 	public class CaveRooms extends MapMaker 
-	{	
-		private const maxPlacedItems:int = 100;
-		private const placeableBorder:int = 2;
-		
+	{
 		private const roomFrequency:Number = 0.6;
 		private const roomSize:Number = 9;
 		private const roomSpacing:Number = 4;
 		private const widthInRooms:Number = 7;
 		
-		private const mapWidth:int = (roomSize + roomSpacing) * widthInRooms + roomSpacing;
-		private const mapHeight:int = mapWidth;
 		
 		public function CaveRooms(itemGroup:FlxGroup) 
 		{
 			super(itemGroup);
+			mapWidth = (roomSize + roomSpacing) * widthInRooms + roomSpacing;
+			mapHeight = mapWidth;
+
 			var noiseBitmap:BitmapData = makeSomeNoise();
 			tilemap = makeTilemapFrom(noiseBitmap);
 			tileSize = tilemap.width / tilemap.widthInTiles;
@@ -111,46 +109,6 @@ package maps
 			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
 			var chest:Chest = new Chest(pixelLocation);
 			itemsGroup.add(chest);
-		}
-		
-		public override function makeMobs():FlxGroup
-		{
-			var result:FlxGroup = new FlxGroup(maxPlacedItems);
-			
-			var placeableArea:FlxRect = new FlxRect(
-				placeableBorder, placeableBorder, 
-				mapWidth - placeableBorder * 2, mapHeight - placeableBorder * 2);
-				
-			for (var i:int = 0; i < maxPlacedItems; i++) 
-			{
-				var tileLocation:FlxPoint = new FlxPoint(
-					Math.floor(Math.random() * placeableArea.width + placeableArea.left),
-					Math.floor(Math.random() * placeableArea.height + placeableArea.top));
-					
-				if (tilemap.getTile(tileLocation.x, tileLocation.y) == 0)
-					addMob(tileLocation, result);
-				else
-					tilemap.setTile(tileLocation.x, tileLocation.y, Global.gemTile);
-			}
-			
-			return result;
-		}
-		
-		private function addMob(location:FlxPoint, group:FlxGroup):void {
-			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
-			if (FlxU.getDistance(pixelLocation, Global.player.getMidpoint()) > 16 * tileSize)
-				group.add(new (Util.randomItemFrom(enemyTypes))(pixelLocation));
-		}
-
-		private function makeRocksPretty(tilemap:FlxTilemap):void {
-			for (var cx:int = 0; cx < mapWidth; cx ++)
-				for (var cy:int = 0; cy < mapHeight - 1; cy ++)
-				{
-					if (tilemap.getTile(cx, cy) == Global.rockTile && tilemap.getTile(cx, cy + 1) == Global.floorTile)
-						tilemap.setTile(cx, cy, Global.rockTile2);
-					if (tilemap.getTile(cx, cy) == Global.wallTile && tilemap.getTile(cx, cy + 1) == Global.floorTile)
-						tilemap.setTile(cx, cy, Global.wallTile2);
-				}
 		}
 
 		private function addImpassableBorderTo(tilemap:FlxTilemap):void {

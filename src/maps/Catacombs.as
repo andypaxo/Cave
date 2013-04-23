@@ -6,13 +6,13 @@ package maps
 	
 	public class Catacombs extends MapMaker 
 	{
-		private const mapWidth:int = 100;
-		private const mapHeight:int = mapWidth;
 		private var map:Array = [];
 
 		public function Catacombs(itemGroup:FlxGroup)
 		{
 			super(itemGroup);
+			mapWidth = 80;
+			mapHeight = mapWidth;
 			tilemap = makeTilemap();
 			tileSize = tilemap.width / tilemap.widthInTiles;
 		}
@@ -42,6 +42,7 @@ package maps
 			var mapData:String = FlxTilemap.arrayToCSV(map, mapWidth);
 			var result:FlxTilemap = new FlxTilemap();
 			result.loadMap(mapData, terrainSprite, 0, 0, FlxTilemap.OFF, 0, 0);
+			makeRocksPretty(result);
 			return result;
 		}
 
@@ -66,6 +67,9 @@ package maps
 				printWall(location.x - roomWidth - 1, y);
 				printWall(location.x + roomWidth, y);
 			}
+
+			var centreLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
+			itemsGroup.add(new Chest(centreLocation));
 		}
 
 		private function drawCorridorsBetween(rooms:Array):void
@@ -107,10 +111,6 @@ package maps
 			var location:int = y * mapWidth + x;
 			if (map[location] == Global.rockTile)
 				map[location] = Global.wallTile;
-		}
-
-		public override function makeMobs():FlxGroup {
-			return new FlxGroup();
 		}
 	}
 }
