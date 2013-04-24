@@ -11,6 +11,7 @@ package
 		private var following:FlxSprite;
 		private var followOffset:FlxPoint;
 		public var damage:Number = 1;
+		public var killOnContact:Boolean = true;
 		
 		public function Owie(x:Number = 0, y:Number = 0, graphic:Class = null, lifetime:Number = 0.5) 
 		{

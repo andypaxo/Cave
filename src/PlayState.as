@@ -176,9 +176,11 @@ package
 
 		private function fireHitMob(mob:Mob, fire:FlxSprite):void
 		{
-			mob.hurt(Owie(fire).damage);
+			var owie:Owie = Owie(fire);
+			mob.hurt(owie.damage);
 			mob.knockBack(Global.player.getMidpoint());
-			fire.kill();
+			if (owie.killOnContact)
+				fire.kill();
 			
 			if (mob.health <= 0)
 				mobs.remove(mob, true);

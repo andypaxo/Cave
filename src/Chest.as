@@ -14,6 +14,9 @@ package
 		[Embed(source = 'data/heartFull.png')]
 		private var heartSprite:Class;
 
+		[Embed(source = 'data/item-fire-wand.png')]
+		private var wandSprite:Class;
+
 		private var open:Boolean = false;
 
 		public function Chest (location:FlxPoint)
@@ -43,6 +46,7 @@ package
 				else
 				{
 					player.give(new RodOfFire());
+					Global.addIcon(getMidpoint(), wandSprite);
 				}
 			}
 		}
