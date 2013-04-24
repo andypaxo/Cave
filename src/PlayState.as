@@ -176,7 +176,7 @@ package
 
 		private function fireHitMob(mob:Mob, fire:FlxSprite):void
 		{
-			mob.hurt(1);
+			mob.hurt(Owie(fire).damage);
 			mob.knockBack(Global.player.getMidpoint());
 			fire.kill();
 			
