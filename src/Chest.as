@@ -47,6 +47,7 @@ package
 				{
 					player.give(new RodOfFire());
 					Global.addIcon(getMidpoint(), wandSprite);
+					FlxG.play(chestSound, 0.3);
 				}
 			}
 		}
