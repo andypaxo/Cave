@@ -29,7 +29,7 @@ package
 		private var diggingSpot:FlxPoint = new FlxPoint( -1, -1);
 		private var diggingTimeRemaining:Number = 0;
 		private const timeToDig:Number = 0.4;
-		private var rockEmitter:FlxEmitter = new FlxEmitter(0, 0, 5);
+		private var rockEmitter:FlxEmitter;
 		private var controlLockout:Number = 0;
 		
 		public var fire:Function;
@@ -43,11 +43,6 @@ package
 		{
 			loadGraphic(sprite, true);
 			
-			rockEmitter.makeParticles(rockSprite, rockEmitter.maxSize, 0, false, 0);
-			rockEmitter.setXSpeed( -30, 30);
-			rockEmitter.setYSpeed( -30, 15);
-			rockEmitter.gravity = 80;
-			
 			health = maxHealth;
 			
 			fireCooldown = Global.createCooldown(doFire, this, 0.5);
@@ -56,6 +51,11 @@ package
 		
 		public function createFX():void
 		{
+			rockEmitter = new FlxEmitter(0, 0, 5);
+			rockEmitter.makeParticles(rockSprite, rockEmitter.maxSize, 0, false, 0);
+			rockEmitter.setXSpeed( -30, 30);
+			rockEmitter.setYSpeed( -30, 15);
+			rockEmitter.gravity = 80;
 			FlxG.state.add(rockEmitter);
 		}
 		

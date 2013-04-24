@@ -16,6 +16,7 @@ package
 		public static const tileSize:int = 12;
 		public static var player:Player;
 		public static var world:MapMaker;
+		public static var wantLevelChange:Boolean;
 		public static function get playStage():PlayStage
 		{
 			return PlayStage(FlxG.state);
@@ -63,6 +64,10 @@ package
 			world = null;
 			cooldowns = new Vector.<Cooldown>();
 			FlxG.score = 0;
+		}
+
+		public static function changeLevel():void {
+			wantLevelChange = true;
 		}
 	}
 

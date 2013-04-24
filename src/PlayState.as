@@ -34,7 +34,7 @@ package
 			var world:MapMaker = new Catacombs(terrainItems);
 			tilemap = world.getTilemap();
 
-			Global.player = new Player();
+			Global.player = Global.player || makePlayer();
 			Global.world = world;
 			
 			var worldBounds:FlxRect = tilemap.getBounds();
@@ -42,8 +42,6 @@ package
 			Global.player.y = worldBounds.height / 2;
 			while (tilemap.overlaps(Global.player))
 				Global.player.y += 8;
-			Global.player.give(new Dagger());
-			Global.player.give(new RodOfFire());
 			
 			tilemap.follow(FlxG.camera);
 			
@@ -80,6 +78,14 @@ package
 			add(sfx);
 			
 			FlxG.playMusic(ambientSound);
+		}
+
+		private function makePlayer():Player
+		{
+			var player:Player = new Player();
+			player.give(new Dagger());
+			player.give(new RodOfFire());
+			return player;
 		}
 		
 		override public function draw():void {
@@ -134,23 +140,38 @@ package
 		{
 			super.update();
 			Global.update();
-			
-			FlxG.collide(tilemap, Global.player);
 
-			FlxG.collide(tilemap, mobs);
-			FlxG.collide(mobs, mobs);
-			
-			if (greatBallsOfFire.length)
-				FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
-			if (unfriendlyFire.length)
-				FlxG.overlap(Global.player, unfriendlyFire, fireHitPlayer);
+			doCollisionUpdates();
+			doWeaponUpdates();
 
 			FlxG.overlap(terrainItems, Global.player, playerTouchedItem);
 			
 			cullGroup(greatBallsOfFire);
 			cullGroup(unfriendlyFire);
+
+			if (Global.wantLevelChange)
+			{
+				remove(Global.player);
+				FlxG.switchState(new PlayState());
+				Global.wantLevelChange = false;
+			}
+		}
+
+		private function doCollisionUpdates():void
+		{
+			FlxG.collide(tilemap, Global.player);
+			FlxG.collide(tilemap, mobs);
+			FlxG.collide(mobs, mobs);
 		}
 		
+		private function doWeaponUpdates():void
+		{
+			if (greatBallsOfFire.length)
+				FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
+			if (unfriendlyFire.length)
+				FlxG.overlap(Global.player, unfriendlyFire, fireHitPlayer);
+		}
+
 		private function fireHitMob(mob:Mob, fire:FlxSprite):void
 		{
 			mob.hurt(1);

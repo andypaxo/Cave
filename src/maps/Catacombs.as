@@ -46,7 +46,7 @@ package maps
 			return result;
 		}
 
-		private function drawRoom(location:FlxPoint, dontcare1:Object, dontcare2:Object):void
+		private function drawRoom(location:FlxPoint, index:int, dontcare2:Object):void
 		{
 			var roomWidth:int = Math.floor(Math.random() * 4) + 3;
 			var roomHeight:int = Math.floor(Math.random() * 4) + 3;
@@ -69,7 +69,10 @@ package maps
 			}
 
 			var centreLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
-			itemsGroup.add(new Chest(centreLocation));
+			if (index > 0)
+				itemsGroup.add(new Hole(centreLocation));
+			else
+				itemsGroup.add(new Chest(centreLocation));
 		}
 
 		private function drawCorridorsBetween(rooms:Array):void
