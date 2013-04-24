@@ -59,6 +59,34 @@ package maps
 				group.add(new (Util.randomItemFrom(enemyTypes))(pixelLocation));
 		}
 
+		protected function placeHoleAt(location:FlxPoint):void
+		{
+			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
+			var hole:FlxSprite = new Hole(pixelLocation);
+			itemsGroup.add(hole);
+		}
+
+		protected function placeChestAt(location:FlxPoint):void
+		{
+			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
+			var chest:FlxSprite = new Chest(pixelLocation);
+			itemsGroup.add(chest);
+		}
+
+		protected function addImpassableBorderTo(tilemap:FlxTilemap):void {
+			for (var cx:int = 0; cx < mapWidth; cx ++)
+			{
+				tilemap.setTile(cx, 0, Global.graniteTile);
+				tilemap.setTile(cx, mapHeight - 1, Global.graniteTile);
+			}
+
+			for (var cy:int = 0; cy < mapHeight; cy ++)
+			{
+				tilemap.setTile(0, cy, Global.graniteTile);
+				tilemap.setTile(mapWidth - 1, cy, Global.graniteTile);
+			}
+		}
+
 		protected function makeRocksPretty(tilemap:FlxTilemap):void {
 			for (var cx:int = 0; cx < mapWidth; cx ++)
 				for (var cy:int = 0; cy < mapHeight - 1; cy ++)

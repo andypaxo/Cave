@@ -100,29 +100,11 @@ package maps
 								? Global.wallTile
 								: Global.floorTile);
 			
-			if (Math.random() < 0.4)
+			var rnd:Number = Math.random();
+			if (rnd < 0.2)
+				placeHoleAt(new FlxPoint(x + 4, y + 4));
+			else if (rnd < 0.6)
 				placeChestAt(new FlxPoint(x + 4, y + 4));
-		}
-
-		private function placeChestAt(location:FlxPoint):void
-		{
-			var pixelLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
-			var chest:Chest = new Chest(pixelLocation);
-			itemsGroup.add(chest);
-		}
-
-		private function addImpassableBorderTo(tilemap:FlxTilemap):void {
-			for (var cx:int = 0; cx < mapWidth; cx ++)
-			{
-				tilemap.setTile(cx, 0, Global.graniteTile);
-				tilemap.setTile(cx, mapHeight - 1, Global.graniteTile);
-			}
-
-			for (var cy:int = 0; cy < mapHeight; cy ++)
-			{
-				tilemap.setTile(0, cy, Global.graniteTile);
-				tilemap.setTile(mapWidth - 1, cy, Global.graniteTile);
-			}
 		}
 		
 		private function indexToLocation(index:int):FlxPoint

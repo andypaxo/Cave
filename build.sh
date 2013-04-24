@@ -1,6 +1,6 @@
 mkdir -p bin
 
-~/Development/air3-6/bin/mxmlc -output bin/cave.swf -source-path flixel -debug -- src/Cave.as
+~/Development/air3-6/bin/mxmlc -output bin/cave.swf -source-path flixel -- src/Cave.as
 
 if [ $? -eq 0 ]
 	then 

@@ -27,11 +27,12 @@ package
 		private var darkness:FlxSprite;
 		private var fire:FlxSprite;
 		private var ice:FlxSprite;
+		private static var levelNumber:int = 1;
 	
 		override public function create():void
 		{
 			terrainItems = new FlxGroup();
-			var world:MapMaker = new Catacombs(terrainItems);
+			var world:MapMaker = levelNumber % 2 == 0 ? new Catacombs(terrainItems) : new CaveRooms(terrainItems);
 			tilemap = world.getTilemap();
 
 			Global.player = Global.player || makePlayer();
@@ -152,6 +153,7 @@ package
 			if (Global.wantLevelChange)
 			{
 				remove(Global.player);
+				levelNumber++;
 				FlxG.switchState(new PlayState());
 				Global.wantLevelChange = false;
 			}

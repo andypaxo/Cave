@@ -35,14 +35,12 @@ package maps
 			rooms.forEach(drawRoom);
 
 			drawCorridorsBetween(rooms);
-			
-			// Place items
-			// Draw outer wall
 
 			var mapData:String = FlxTilemap.arrayToCSV(map, mapWidth);
 			var result:FlxTilemap = new FlxTilemap();
 			result.loadMap(mapData, terrainSprite, 0, 0, FlxTilemap.OFF, 0, 0);
 			makeRocksPretty(result);
+			addImpassableBorderTo(result);
 			return result;
 		}
 
@@ -69,10 +67,13 @@ package maps
 			}
 
 			var centreLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
-			if (index > 0)
-				itemsGroup.add(new Hole(centreLocation));
-			else
-				itemsGroup.add(new Chest(centreLocation));
+			if (index > 0) {
+				var rnd:Number = Math.random();
+				if (rnd < 0.2)
+					placeHoleAt(new FlxPoint(x + 4, y + 4));
+				else if (rnd < 0.6)
+					placeChestAt(new FlxPoint(x + 4, y + 4));
+			}
 		}
 
 		private function drawCorridorsBetween(rooms:Array):void
