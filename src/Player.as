@@ -22,6 +22,11 @@ package
 
 		[Embed(source = 'data/get-heart.mp3')]
 		private var heartSound:Class;
+		[Embed(source = 'data/break-weapon.mp3')]
+		private var breakSound:Class;
+
+		[Embed(source = 'data/item-fire-wand.png')]
+		private var wandGraphic:Class;
 
 		private const walkingSpeed:Number = 60;
 		public static const maxHealth:Number = 8;
@@ -89,7 +94,14 @@ package
 			{
 				var weapon:Weapon = inventory[i];
 				if (weapon && weapon.uses == 0)
+				{
 					inventory[i] = null;
+					var iconSize:Number = 16;
+					var w:Number = iconSize * inventory.length;
+					var location:FlxPoint = new FlxPoint((FlxG.width - w) / 2 + iconSize * i + iconSize/2, FlxG.height - iconSize / 2);
+					Global.addIcon(location, wandGraphic).scrollFactor = new FlxPoint();
+					FlxG.play(breakSound);
+				}
 			}
 
 			if (FlxG.keys.ONE)

@@ -47,9 +47,11 @@ package
 			PlayState(FlxG.state).sfx.add(new ScoreWidget(location, score));
 		}
 		
-		public static function addIcon(location:FlxPoint, graphic:Class):void
+		public static function addIcon(location:FlxPoint, graphic:Class):FlxSprite
 		{
-			PlayState(FlxG.state).sfx.add(new FloatySprite(location, graphic));
+			var sprite:FlxSprite = new FloatySprite(location, graphic);
+			PlayState(FlxG.state).sfx.add(sprite);
+			return sprite;
 		}
 		
 		public static function update():void
