@@ -79,6 +79,7 @@ package
 			add(sfx);
 			
 			FlxG.playMusic(ambientSound);
+			FlxG.flash(0xff000000);
 		}
 
 		private function makePlayer():Player
@@ -139,24 +140,29 @@ package
 		
 		override public function update():void
 		{
-			super.update();
-			Global.update();
-
-			doCollisionUpdates();
-			doWeaponUpdates();
-
-			FlxG.overlap(terrainItems, Global.player, playerTouchedItem);
-			
-			cullGroup(greatBallsOfFire);
-			cullGroup(unfriendlyFire);
-
 			if (Global.wantLevelChange)
 			{
-				remove(Global.player);
-				levelNumber++;
-				FlxG.switchState(new PlayState());
-				Global.wantLevelChange = false;
+				FlxG.fade(0xff000000, 1, nextLevelPlease);
+			} else {
+				super.update();
+				Global.update();
+
+				doCollisionUpdates();
+				doWeaponUpdates();
+
+				FlxG.overlap(terrainItems, Global.player, playerTouchedItem);
+				
+				cullGroup(greatBallsOfFire);
+				cullGroup(unfriendlyFire);
 			}
+		}
+
+		private function nextLevelPlease():void
+		{
+			Global.wantLevelChange = false;
+			remove(Global.player);
+			levelNumber++;
+			FlxG.switchState(new PlayState());
 		}
 
 		private function doCollisionUpdates():void
