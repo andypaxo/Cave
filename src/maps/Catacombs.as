@@ -66,13 +66,12 @@ package maps
 				printWall(location.x + roomWidth, y);
 			}
 
-			var centreLocation:FlxPoint = Util.scalePoint(location, Global.tileSize);
 			if (index > 0) {
 				var rnd:Number = Math.random();
-				if (rnd < 0.2)
-					placeHoleAt(new FlxPoint(x + 4, y + 4));
-				else if (rnd < 0.6)
-					placeChestAt(new FlxPoint(x + 4, y + 4));
+				if (rnd < 0.3)
+					placeHoleAt(location);
+				else if (rnd < 0.7)
+					placeChestAt(location);
 			}
 		}
 

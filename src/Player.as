@@ -282,6 +282,7 @@ package
 			FlxG.fade(0, 3, function():void { FlxG.switchState(new MenuState()); } );
 			Global.spatter(this);
 			FlxG.play(deathSound, 0.4);
+			FlxG.level = 0;
 		}
 		
 		public function isDead():Boolean
