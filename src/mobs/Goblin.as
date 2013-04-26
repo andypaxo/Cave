@@ -10,6 +10,7 @@ package mobs
 		public function Goblin(location:FlxPoint,graphic:Class=null) 
 		{
 			super(location, sprite);
+			setup();
 		}
 	}
 }

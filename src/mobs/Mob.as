@@ -20,25 +20,25 @@ package mobs
 		private const walkingSpeed:Number = 70;
 		private const attackStrength:Number = 1;
 		
-		private var level:int;
+		protected var level:int;
 		
 		private var controlLockout:Number = 0;
 		
 		private var isSeeking:Boolean;
 		private var seekPlayer:Function;
 		private var attackPlayer:Function;
+		protected var attackSpeed:Number = 2;
 		
 		public function Mob(location:FlxPoint,graphic:Class=null) 
 		{
 			super(location.x, location.y);
 			loadGraphic(graphic, true, true);
-			setup();
 		}
 
 		protected function setup():void
 		{
 			seekPlayer = Global.createCooldown(doSeekPlayer, this, 1).execute;
-			attackPlayer = Global.createCooldown(doAttackPlayer, this, 2).execute;
+			attackPlayer = Global.createCooldown(doAttackPlayer, this, attackSpeed).execute;
 			
 			frame = Math.floor(Math.random() * (frames + 1));
 			level = frame;

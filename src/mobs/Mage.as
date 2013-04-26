@@ -12,7 +12,7 @@ package mobs
 		public function Mage(location:FlxPoint) 
 		{
 			super(location, sprite);
-			attackDistance = 6.1 * Global.tileSize;
+			attackDistance = 2.1 * Global.tileSize;
 		}
 
 		protected override function shouldStop():Boolean

@@ -3,6 +3,7 @@ package maps
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import org.flixel.*;
+	import mobs.*;
 	
 	public class BossRoom extends MapMaker 
 	{
@@ -34,7 +35,9 @@ package maps
 		public override function makeMobs():FlxGroup
 		{
 			// Place one boss
-			return new FlxGroup();
+			var result:FlxGroup = new FlxGroup();
+			result.add(new Boss(Util.scalePoint(new FlxPoint(mapWidth * .75, mapHeight * .5), tileSize)));
+			return result;
 		}
 	}
 }
