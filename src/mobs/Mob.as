@@ -1,16 +1,16 @@
-package  
+package mobs
 {
 	import org.flixel.*;
 	
 	public class Mob extends FlxSprite 
 	{	
-		[Embed(source = 'data/mob-hurt.mp3')]
+		[Embed(source = '../data/mob-hurt.mp3')]
 		private var hurtSound:Class;
-		[Embed(source = 'data/mob-alert-1.mp3')]
+		[Embed(source = '../data/mob-alert-1.mp3')]
 		private var alertSound1:Class;
-		[Embed(source = 'data/mob-alert-2.mp3')]
+		[Embed(source = '../data/mob-alert-2.mp3')]
 		private var alertSound2:Class;
-		[Embed(source = 'data/mob-alert-3.mp3')]
+		[Embed(source = '../data/mob-alert-3.mp3')]
 		private var alertSound3:Class;
 		private var sounds:Array;
 		

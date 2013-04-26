@@ -1,12 +1,12 @@
-package
+package mobs
 {
 	import org.flixel.*
 
 	public class Mage extends Mob
 	{
-		[Embed(source = 'data/mage.png')]
+		[Embed(source = '../data/mage.png')]
 		private var sprite:Class;
-		[Embed(source = 'data/ice-attack.png')]
+		[Embed(source = '../data/ice-attack.png')]
 		private var iceball:Class;
 
 		public function Mage(location:FlxPoint) 

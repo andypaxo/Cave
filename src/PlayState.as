@@ -3,6 +3,7 @@ package
 	import org.flixel.*;
 	import items.*;
 	import maps.*;
+	import mobs.*;
 
 	public class PlayState extends FlxState implements PlayStage
 	{		
@@ -19,7 +20,7 @@ package
 		private var tilemap:FlxTilemap;
 		private var floorDecals:FlxGroup;
 		private var terrainItems:FlxGroup;
-		private var mobs:FlxGroup;
+		private var mobGroup:FlxGroup;
 		private var greatBallsOfFire:FlxGroup;
 		private var unfriendlyFire:FlxGroup;
 		public var sfx:FlxGroup;
@@ -31,7 +32,8 @@ package
 		override public function create():void
 		{
 			terrainItems = new FlxGroup();
-			var world:MapMaker = FlxG.level % 2 == 0 ? new Catacombs(terrainItems) : new CaveRooms(terrainItems);
+			//var world:MapMaker = FlxG.level % 2 == 0 ? new Catacombs(terrainItems) : new CaveRooms(terrainItems);
+			var world:MapMaker = new BossRoom(terrainItems);
 			tilemap = world.getTilemap();
 
 			Global.player = Global.player || makePlayer();
@@ -55,8 +57,8 @@ package
 			add(Global.player);
 			Global.player.createFX();
 			
-			mobs = world.makeMobs();
-			add(mobs);
+			mobGroup = world.makeMobs();
+			add(mobGroup);
 			
 			darkness = new FlxSprite(0,0);
 			darkness.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
@@ -167,14 +169,14 @@ package
 		private function doCollisionUpdates():void
 		{
 			FlxG.collide(tilemap, Global.player);
-			FlxG.collide(tilemap, mobs);
-			FlxG.collide(mobs, mobs);
+			FlxG.collide(tilemap, mobGroup);
+			FlxG.collide(mobGroup, mobGroup);
 		}
 		
 		private function doWeaponUpdates():void
 		{
 			if (greatBallsOfFire.length)
-				FlxG.overlap(mobs, greatBallsOfFire, fireHitMob);
+				FlxG.overlap(mobGroup, greatBallsOfFire, fireHitMob);
 			if (unfriendlyFire.length)
 				FlxG.overlap(Global.player, unfriendlyFire, fireHitPlayer);
 		}
@@ -188,7 +190,7 @@ package
 				fire.kill();
 			
 			if (mob.health <= 0)
-				mobs.remove(mob, true);
+				mobGroup.remove(mob, true);
 		}
 		
 		private function fireHitPlayer(player:Player, fire:FlxSprite):void

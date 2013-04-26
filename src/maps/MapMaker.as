@@ -3,6 +3,7 @@ package maps
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import org.flixel.*;
+	import mobs.*;
 	
 	public class MapMaker 
 	{
