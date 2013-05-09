@@ -12,11 +12,11 @@ package mobs
 		public function Boss(location:FlxPoint,graphic:Class=null) 
 		{
 			super(location, sprite);
-			attackSpeed = 0.6;
+			attackSpeed = 1.2;
 			setup();
 			attackDistance = 6.1 * Global.tileSize;
 			health = 20;
-			level = 10;
+			level = 19;
 		}
 
 		protected override function shouldStop():Boolean
@@ -37,7 +37,10 @@ package mobs
 
 		private function throwFireballAt(point:FlxPoint):void
 		{
-			var offset:FlxPoint = new FlxPoint(Math.random() * 64 - 32, Math.random() * 64 - 32);
+			var variance:Number = 60;
+			var offset:FlxPoint = new FlxPoint(
+				Math.random() * variance * 2 - variance,
+				Math.random() * variance * 2 - variance);
 			var target:FlxPoint = Util.addPoints(point, offset);
 			var fireball:FlxSprite = new Owie(0, 0, iceball, 1)
 				.from(getMidpoint())

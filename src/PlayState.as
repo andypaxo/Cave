@@ -28,12 +28,14 @@ package
 		private var darkness:FlxSprite;
 		private var fire:FlxSprite;
 		private var ice:FlxSprite;
+
+		private var levels:Array = [CaveRooms, Catacombs, CaveRooms, Catacombs, BossRoom];
 	
 		override public function create():void
 		{
 			terrainItems = new FlxGroup();
-			//var world:MapMaker = FlxG.level % 2 == 0 ? new Catacombs(terrainItems) : new CaveRooms(terrainItems);
-			var world:MapMaker = new BossRoom(terrainItems);
+			var ctor:Class = BossRoom;
+			var world:MapMaker = new levels[FlxG.level](terrainItems);
 			tilemap = world.getTilemap();
 
 			Global.player = Global.player || makePlayer();
